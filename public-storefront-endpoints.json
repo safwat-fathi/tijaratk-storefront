@@ -1,0 +1,179 @@
+{
+  "source": "../tijaratk-dashboard/openapi.json",
+  "publicStorefrontEndpoints": [
+    {
+      "operationId": "StorefrontsPublicController_getStorefront",
+      "method": "GET",
+      "path": "/public/storefronts/{slug}",
+      "summary": "Get public storefront by slug",
+      "pathParams": {
+        "slug": {
+          "type": "string",
+          "description": "Unique storefront slug"
+        }
+      },
+      "queryParams": {},
+      "requestBody": null,
+      "responses": {
+        "200": "Public storefront data by slug"
+      }
+    },
+    {
+      "operationId": "StorefrontsPublicController_getStorefrontProducts",
+      "method": "GET",
+      "path": "/public/storefronts/{slug}/products",
+      "summary": "Get products for a public storefront",
+      "pathParams": {
+        "slug": {
+          "type": "string",
+          "description": "Unique storefront slug"
+        }
+      },
+      "queryParams": {
+        "page": {
+          "type": "number",
+          "required": false,
+          "description": "Current page number",
+          "example": 1
+        },
+        "limit": {
+          "type": "number",
+          "required": false,
+          "description": "Number of items per page",
+          "example": 10
+        },
+        "keyword": {
+          "type": "string",
+          "required": false,
+          "description": "Search term to match product name",
+          "example": "T-shirt"
+        }
+      },
+      "requestBody": null,
+      "responses": {
+        "200": "List of products for a storefront"
+      }
+    },
+    {
+      "operationId": "StorefrontsPublicController_getStorefrontProduct",
+      "method": "GET",
+      "path": "/public/storefronts/{slug}/products/{productSlug}",
+      "summary": "Get a single product for a public storefront",
+      "pathParams": {
+        "slug": {
+          "type": "string",
+          "description": "Unique storefront slug"
+        },
+        "productSlug": {
+          "type": "string",
+          "description": "Unique product slug"
+        }
+      },
+      "queryParams": {},
+      "requestBody": null,
+      "responses": {
+        "200": "Single product details for a storefront"
+      }
+    },
+    {
+      "operationId": "OrdersPublicController_createOrder",
+      "method": "POST",
+      "path": "/public/storefronts/{slug}/orders",
+      "summary": "Create storefront order (public, no auth)",
+      "pathParams": {
+        "slug": {
+          "type": "string",
+          "description": "Unique storefront slug"
+        }
+      },
+      "queryParams": {},
+      "requestBody": {
+        "description": "Create an order for a storefront",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "required": [
+            "buyer_name",
+            "buyer_phone",
+            "shipping_address_line1",
+            "shipping_city",
+            "items"
+          ],
+          "properties": {
+            "buyer_name": {
+              "type": "string",
+              "description": "Full name of the buyer",
+              "example": "John Doe"
+            },
+            "buyer_phone": {
+              "type": "string",
+              "description": "Phone number of the buyer",
+              "example": "+201234567890"
+            },
+            "buyer_email": {
+              "type": "string",
+              "description": "Email address of the buyer",
+              "example": "john@example.com"
+            },
+            "shipping_address_line1": {
+              "type": "string",
+              "description": "Shipping address line 1",
+              "example": "123 Main St"
+            },
+            "shipping_address_line2": {
+              "type": "string",
+              "description": "Shipping address line 2",
+              "example": "Apartment 4B"
+            },
+            "shipping_city": {
+              "type": "string",
+              "description": "Shipping city",
+              "example": "Cairo"
+            },
+            "shipping_state": {
+              "type": "string",
+              "description": "Shipping state or region",
+              "example": "Giza"
+            },
+            "shipping_postal_code": {
+              "type": "string",
+              "description": "Shipping postal code",
+              "example": "12345"
+            },
+            "notes": {
+              "type": "string",
+              "description": "Optional notes from the buyer",
+              "example": "Please deliver after 5 PM."
+            },
+            "items": {
+              "type": "array",
+              "description": "Items included in the order",
+              "items": {
+                "type": "object",
+                "required": [
+                  "productId",
+                  "quantity"
+                ],
+                "properties": {
+                  "productId": {
+                    "type": "number",
+                    "description": "ID of the product being ordered",
+                    "example": 1
+                  },
+                  "quantity": {
+                    "type": "number",
+                    "description": "Quantity of the product",
+                    "example": 2
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": "The order has been successfully created."
+      }
+    }
+  ]
+}
