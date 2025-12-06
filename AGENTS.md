@@ -4,7 +4,7 @@ This file provides guidelines for AI agents and coding assistants when working w
 
 ## Project overview
 
-NafeesWeb Gold System is a business management application that provides end-to-end solutions for gold trading businesses. The system includes modules for managing customers, items, invoices, accounting, and comprehensive reporting with analytics.
+Tijaratk Storefront is a zero-commission e-commerce SaaS built for Egyptian social sellers, small brands, and online merchants. It provides a storefront, admin panel, and a powerful Omnichannel Inbox that unifies messages from Facebook and Instagram into one place.
 
 ## Project structure
 
@@ -21,7 +21,6 @@ NafeesWeb Gold System is a business management application that provides end-to-
   - `services/api` contains API services
   - `services/base` contains main HTTPService logic
   - `services/bff` contains BFF services (composed API services in a single service)
-- `app/components/(pages)/Sidebar` contains app sidebar
 
 ## Commands
 

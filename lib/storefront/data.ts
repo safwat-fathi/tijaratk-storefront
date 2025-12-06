@@ -12,11 +12,18 @@ import {
   type StorefrontThemeTokens,
 } from "./theme";
 
-interface StorefrontProductsMeta {
+export interface StorefrontProductsMeta {
 	page?: number;
 	limit?: number;
 	total?: number;
 	last_page?: number;
+}
+
+const DEFAULT_PRODUCTS_LIMIT = 9;
+
+interface StorefrontProductsPageResult {
+	items: StorefrontProduct[];
+	meta?: StorefrontProductsMeta;
 }
 
 export interface StorefrontHomeData {
@@ -37,26 +44,54 @@ const fetchStorefront = cache(async (slug: string) => {
   return response.data;
 });
 
-const fetchFeaturedProducts = cache(
-	async (slug: string) => {
+const fetchStorefrontProductsPage = cache(
+	async (slug: string, page = 1, limit = DEFAULT_PRODUCTS_LIMIT) => {
 		const response = await storefrontApiService.getStorefrontProducts(slug, {
-			limit: 12,
+			page,
+			limit,
 		});
-		
+
 		if (!response.success || !response.data) {
-			console.warn("Failed to load storefront products", response.message);
+			console.warn(
+				"Failed to load storefront products",
+				response.message,
+			);
 			return null;
 		}
-		
+
 		return response.data;
 	},
 );
 
+export async function getStorefrontProductsPage(
+	slug: string,
+	options?: { page?: number; limit?: number },
+): Promise<StorefrontProductsPageResult | null> {
+	const { page = 1, limit = DEFAULT_PRODUCTS_LIMIT } = options ?? {};
+	const response = await fetchStorefrontProductsPage(slug, page, limit);
+
+	if (!response) {
+		return null;
+	}
+
+	return {
+		items: response.items ?? [],
+		meta: {
+			page: response.page ?? page,
+			limit: response.limit ?? limit,
+			total: response.total,
+			last_page: response.last_page,
+		},
+	};
+}
+
 export async function getStorefrontHomeData(
-  slug: string,
+	slug: string,
+	options?: { page?: number; limit?: number },
 ): Promise<StorefrontHomeData | null> {
-  const storefrontPromise = fetchStorefront(slug);
-  const productsPromise = fetchFeaturedProducts(slug);
+	const { page = 1, limit = DEFAULT_PRODUCTS_LIMIT } = options ?? {};
+	const storefrontPromise = fetchStorefront(slug);
+	const productsPromise = getStorefrontProductsPage(slug, { page, limit });
 
   const storefront = await storefrontPromise;
   
@@ -68,14 +103,7 @@ export async function getStorefrontHomeData(
 
 	const layout = storefront.theme_config?.layout === "list" ? "list" : "grid";
 
-	const productsMeta: StorefrontProductsMeta | undefined = products
-		? {
-			page: products.page,
-			limit: products.limit,
-			total: products.total,
-			last_page: products.last_page,
-		}
-		: undefined;
+	const productsMeta = products?.meta;
 
 	return {
 		storefront,
