@@ -23,7 +23,7 @@ export function ProductGrid({ products, layout = "grid" }: Props) {
 		<section id="products" className="space-y-6">
 			<div className="flex flex-col gap-2">
 				<p className="text-sm uppercase tracking-[0.3em] text-(--store-text-muted)">
-					Featured products
+					products
 				</p>
 				<h2 className="text-2xl font-semibold text-(--store-text)">
 					Freshly stocked for this week

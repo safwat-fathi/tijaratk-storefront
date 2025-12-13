@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import { useQueryParams } from "@/lib/hooks/useQueryParams";
 import type { StorefrontProductsMeta } from "@/lib/storefront/data";
@@ -31,6 +32,9 @@ export function StorefrontPagination({
 	meta,
 	initialPage,
 }: StorefrontPaginationProps) {
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+
 	const totalPages = Math.max(1, meta?.last_page ?? 1);
 	const { params } = useQueryParams<PaginationSchema>(["page"], {
 		defaultValues: { page: initialPage },
@@ -53,9 +57,9 @@ export function StorefrontPagination({
 	const hasNext = currentPage < totalPages;
 
 	const buildPageUrl = (page: number) => {
-		const url = new URL(window.location.href);
-		url.searchParams.set("page", String(page));
-		return `${url.pathname}${url.search}`;
+		const newParams = new URLSearchParams(searchParams?.toString());
+		newParams.set("page", String(page));
+		return `${pathname}?${newParams.toString()}`;
 	};
 
 	return (
