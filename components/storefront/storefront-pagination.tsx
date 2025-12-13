@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 
 import { useQueryParams } from "@/lib/hooks/useQueryParams";
 import type { StorefrontProductsMeta } from "@/lib/storefront/data";
@@ -31,7 +32,7 @@ export function StorefrontPagination({
 	initialPage,
 }: StorefrontPaginationProps) {
 	const totalPages = Math.max(1, meta?.last_page ?? 1);
-	const { params, setParam } = useQueryParams<PaginationSchema>(["page"], {
+	const { params } = useQueryParams<PaginationSchema>(["page"], {
 		defaultValues: { page: initialPage },
 		schema: { page: pageParser },
 		pushMode: "replace",
@@ -46,14 +47,15 @@ export function StorefrontPagination({
 		return null;
 	}
 
-	const handlePrev = () => {
-		if (currentPage <= 1) return;
-		setParam("page", currentPage - 1);
-	};
+	const prevPage = currentPage - 1;
+	const nextPage = currentPage + 1;
+	const hasPrev = currentPage > 1;
+	const hasNext = currentPage < totalPages;
 
-	const handleNext = () => {
-		if (currentPage >= totalPages) return;
-		setParam("page", currentPage + 1);
+	const buildPageUrl = (page: number) => {
+		const url = new URL(window.location.href);
+		url.searchParams.set("page", String(page));
+		return `${url.pathname}${url.search}`;
 	};
 
 	return (
@@ -62,22 +64,32 @@ export function StorefrontPagination({
 				Page {currentPage} of {totalPages}
 			</div>
 			<div className="flex gap-3">
-				<button
-					type="button"
-					onClick={handlePrev}
-					disabled={currentPage <= 1}
-					className="inline-flex flex-1 items-center justify-center rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-40 hover:border-(--store-accent) hover:text-(--store-accent)"
-				>
-					Previous
-				</button>
-				<button
-					type="button"
-					onClick={handleNext}
-					disabled={currentPage >= totalPages}
-					className="inline-flex flex-1 items-center justify-center rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-40 hover:border-(--store-accent) hover:text-(--store-accent)"
-				>
-					Next
-				</button>
+				{hasPrev ? (
+					<Link
+						href={buildPageUrl(prevPage)}
+						prefetch={false}
+						className="cursor-pointer inline-flex flex-1 items-center justify-center rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium transition hover:border-(--store-accent) hover:text-(--store-accent)"
+					>
+						Previous
+					</Link>
+				) : (
+					<span className="inline-flex flex-1 items-center justify-center rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium cursor-not-allowed opacity-40">
+						Previous
+					</span>
+				)}
+				{hasNext ? (
+					<Link
+						href={buildPageUrl(nextPage)}
+						prefetch={true}
+						className="cursor-pointer inline-flex flex-1 items-center justify-center rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium transition hover:border-(--store-accent) hover:text-(--store-accent)"
+					>
+						Next
+					</Link>
+				) : (
+					<span className="inline-flex flex-1 items-center justify-center rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium cursor-not-allowed opacity-40">
+						Next
+					</span>
+				)}
 			</div>
 		</div>
 	);

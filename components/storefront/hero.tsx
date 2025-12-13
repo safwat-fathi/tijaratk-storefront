@@ -7,14 +7,23 @@ interface StorefrontHeroProps {
   storefront: PublicStorefront;
 }
 
-const chipMessages = [
-  "Curated weekly drops",
-  "Guest-friendly checkout",
-  "Secure fulfillment",
+const defaultChipMessages = [
+	"Curated weekly drops",
+	"Guest-friendly checkout",
+	"Secure fulfillment",
 ];
 
 export function StorefrontHero({ storefront }: StorefrontHeroProps) {
-  return (
+	const primaryCategory = storefront.storefrontCategory?.primaryCategory;
+	const subCategories = storefront.subCategories || [];
+
+	// Use sub-categories if available, otherwise fall back to default messages
+	const displayChips =
+		subCategories.length > 0
+			? subCategories.map(sub => sub.name)
+			: defaultChipMessages;
+
+	return (
 		<section className="hero-section relative overflow-hidden rounded-4xl border border-(--store-border) bg-(--store-surface) px-6 py-12 shadow-sm sm:px-10 sm:py-16">
 			{storefront.cover_image_url ? (
 				<Image
@@ -62,6 +71,26 @@ export function StorefrontHero({ storefront }: StorefrontHeroProps) {
 				</div>
 
 				<div className="max-w-3xl space-y-4">
+					{primaryCategory && (
+						<div className="flex items-center gap-2">
+							<span className="inline-flex items-center gap-2 rounded-full bg-(--store-accent)/10 px-4 py-1.5 text-sm font-medium text-(--store-accent) shadow-sm ring-1 ring-(--store-accent)/20">
+								<svg
+									className="h-4 w-4"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+									/>
+								</svg>
+								{primaryCategory.name_en}
+							</span>
+						</div>
+					)}
 					<h1 className="text-4xl font-semibold leading-tight tracking-tight text-(--store-text) sm:text-5xl">
 						{storefront.name}
 					</h1>
@@ -72,9 +101,9 @@ export function StorefrontHero({ storefront }: StorefrontHeroProps) {
 				</div>
 
 				<div className="flex flex-wrap gap-3 text-sm text-(--store-text-muted)">
-					{chipMessages.map(message => (
+					{displayChips.map((message, index) => (
 						<span
-							key={message}
+							key={`${message}-${index}`}
 							className="inline-flex items-center gap-2 rounded-full bg-(--store-accent-soft)/50 px-5 py-2 text-(--store-text)"
 						>
 							<span className="h-2 w-2 rounded-full bg-(--store-accent)" />
@@ -86,16 +115,16 @@ export function StorefrontHero({ storefront }: StorefrontHeroProps) {
 				<div className="flex flex-wrap gap-4 text-sm font-medium">
 					<a
 						href="#products"
-						className="inline-flex items-center justify-center rounded-full bg-(--store-accent) px-6 py-3 text-white shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:shadow-xl"
+						className="cursor-pointer inline-flex items-center justify-center rounded-full bg-(--store-accent) px-6 py-3 text-white shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:shadow-xl"
 					>
 						Explore Products
 					</a>
-					<button
+					{/* <button
 						type="button"
 						className="inline-flex items-center justify-center rounded-full border border-(--store-border) px-6 py-3 text-(--store-text) transition hover:border-(--store-accent)"
 					>
 						View Story
-					</button>
+					</button> */}
 				</div>
 			</div>
 		</section>

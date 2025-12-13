@@ -20,21 +20,49 @@ export interface StorefrontThemeConfig {
   [key: string]: unknown;
 }
 
+export interface Category {
+	id: number;
+	key: string;
+	name_en: string;
+	name_ar: string;
+	suggested_sub_categories: { name_en: string; name_ar: string }[];
+}
+
+export interface StorefrontCategory {
+	id: number;
+	storefrontId: number;
+	primaryCategoryId: number;
+	primaryCategory: Category;
+	secondaryCategoryId?: number;
+	secondaryCategory?: Category;
+}
+
+export interface SubCategory {
+	id: number;
+	storefrontId: number;
+	categoryId: number;
+	category: Category;
+	name: string;
+	is_custom: boolean;
+}
+
 export interface PublicStorefront {
-  id: number;
-  slug: string;
-  name: string;
-  description?: string;
-  logo_url?: string;
-  cover_image_url?: string;
-  theme_config?: StorefrontThemeConfig;
-  tracking_config?: Record<string, string | undefined>;
-  seo?: {
-    title?: string;
-    description?: string;
-    image?: string;
-  };
-  [key: string]: unknown;
+	id: number;
+	slug: string;
+	name: string;
+	description?: string;
+	logo_url?: string;
+	cover_image_url?: string;
+	theme_config?: StorefrontThemeConfig;
+	tracking_config?: Record<string, string | undefined>;
+	seo?: {
+		title?: string;
+		description?: string;
+		image?: string;
+	};
+	storefrontCategory?: StorefrontCategory;
+	subCategories?: SubCategory[];
+	[key: string]: unknown;
 }
 
 export interface StorefrontProduct {
