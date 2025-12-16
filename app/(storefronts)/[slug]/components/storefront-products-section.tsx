@@ -33,10 +33,8 @@ export async function StorefrontProductsSection({
 
 	return (
 		<section className="space-y-8">
-			<ProductGrid products={products} layout={layout} />
-			{meta ? (
-				<StorefrontPagination meta={meta} initialPage={page} />
-			) : null}
+			<ProductGrid products={products} storefrontSlug={slug} layout={layout} />
+			{meta ? <StorefrontPagination meta={meta} initialPage={page} /> : null}
 		</section>
 	);
 }

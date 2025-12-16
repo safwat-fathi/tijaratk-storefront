@@ -5,16 +5,22 @@ import { ProductList } from "./product-list";
 
 interface Props {
 	products: StorefrontProduct[];
+	storefrontSlug: string;
 	layout?: ProductsLayout;
 }
 
-export function ProductGrid({ products, layout = "grid" }: Props) {
+export function ProductGrid({
+	products,
+	storefrontSlug,
+	layout = "grid",
+}: Props) {
 	const isList = layout === "list";
 
 	if (!products.length) {
 		return (
 			<div className="rounded-3xl border border-dashed border-(--store-border) bg-(--store-surface)/50 p-10 text-center text-sm text-(--store-text-muted)">
-				Products will appear here as soon as they&apos;re published in the dashboard.
+				Products will appear here as soon as they&apos;re published in the
+				dashboard.
 			</div>
 		);
 	}
@@ -37,6 +43,7 @@ export function ProductGrid({ products, layout = "grid" }: Props) {
 						<ProductCard
 							key={product.id ?? product.slug}
 							product={product}
+							storefrontSlug={storefrontSlug}
 							index={index}
 						/>
 					))}

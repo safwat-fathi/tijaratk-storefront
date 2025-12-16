@@ -66,15 +66,17 @@ export interface PublicStorefront {
 }
 
 export interface StorefrontProduct {
-  id: number;
-  slug: string;
-  name: string;
-  description?: string;
-  price?: number;
-  currency?: string;
-  sku?: string;
-  images?: string[];
-  [key: string]: unknown;
+	id: number;
+	slug: string;
+	name: string;
+	description?: string;
+	main_image?: string;
+	images?: string[];
+	price?: number;
+	currency?: string;
+	sku?: string;
+	stock?: number;
+	[key: string]: unknown;
 }
 
 export interface StorefrontProductsQuery extends IParams {
