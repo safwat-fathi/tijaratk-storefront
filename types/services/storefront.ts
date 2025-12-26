@@ -111,3 +111,11 @@ export interface CreateStorefrontOrderResponse {
   message?: string;
   [key: string]: unknown;
 }
+
+export interface CreateCustomOrderRequest {
+	buyer_name: string;
+	buyer_phone: string;
+	description: string;
+	budget?: number;
+	images?: string[];
+}

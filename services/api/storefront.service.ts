@@ -7,7 +7,14 @@ import type {
 	StorefrontProduct,
 	StorefrontProductListResponse,
 	StorefrontProductsQuery,
+	CreateCustomOrderRequest,
 } from "@/types/services/storefront";
+
+export interface CustomOrderRequestResponse {
+	id: number;
+	status: string;
+	// ... other fields if needed for UI feedback
+}
 
 /**
  * StorefrontApiService wraps the anonymous/public storefront endpoints defined
@@ -29,10 +36,7 @@ export class StorefrontApiService extends HttpService {
 	/**
 	 * GET /public/storefronts/{slug}/products
 	 */
-	public getStorefrontProducts(
-		slug: string,
-		query?: StorefrontProductsQuery
-	) {
+	public getStorefrontProducts(slug: string, query?: StorefrontProductsQuery) {
 		return this.get<StorefrontProductListResponse>(`${slug}/products`, query);
 	}
 
@@ -48,6 +52,16 @@ export class StorefrontApiService extends HttpService {
 	 */
 	public createOrder(slug: string, payload: CreateStorefrontOrderRequest) {
 		return this.post<CreateStorefrontOrderResponse>(`${slug}/orders`, payload);
+	}
+
+	/**
+	 * POST /public/storefronts/{slug}/custom-orders
+	 */
+	public createCustomRequest(slug: string, payload: CreateCustomOrderRequest) {
+		return this.post<CustomOrderRequestResponse>(
+			`${slug}/custom-orders`,
+			payload
+		);
 	}
 }
 

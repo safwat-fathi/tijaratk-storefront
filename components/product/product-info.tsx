@@ -2,23 +2,42 @@
 
 import { useState } from "react";
 import type { StorefrontProduct } from "@/types/services/storefront";
+import { useCartStore } from "@/store/cart-store";
 
 interface ProductInfoProps {
 	product: StorefrontProduct;
 	storefrontCategoryName?: string;
+	storefrontId: number;
 }
 
-export function ProductInfo({ product, storefrontCategoryName }: ProductInfoProps) {
+export function ProductInfo({
+	product,
+	storefrontCategoryName,
+	storefrontId,
+}: ProductInfoProps) {
 	const [quantity, setQuantity] = useState(1);
+	const { addItem } = useCartStore();
+
+	const handleAddToCart = () => {
+		addItem({
+			id: product.id,
+			slug: product.slug,
+			name: product.name,
+			price: product.price ?? 0,
+			quantity: quantity,
+			image: product.main_image,
+			storefrontId: storefrontId,
+		});
+	};
 
 	const incrementQuantity = () => {
 		if (product.stock && quantity >= product.stock) return;
-		setQuantity((prev) => prev + 1);
+		setQuantity(prev => prev + 1);
 	};
 
 	const decrementQuantity = () => {
 		if (quantity <= 1) return;
-		setQuantity((prev) => prev - 1);
+		setQuantity(prev => prev - 1);
 	};
 
 	const formatPrice = (price?: number) => {
@@ -103,15 +122,25 @@ export function ProductInfo({ product, storefrontCategoryName }: ProductInfoProp
 							className="flex h-10 w-10 items-center justify-center rounded-full border border-(--store-border) text-(--store-text) transition hover:border-(--store-accent) hover:text-(--store-accent) disabled:cursor-not-allowed disabled:opacity-40"
 							aria-label="Decrease quantity"
 						>
-							<svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+							<svg
+								className="h-5 w-5"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M20 12H4"
+								/>
 							</svg>
 						</button>
 						<input
 							type="number"
 							id="quantity"
 							value={quantity}
-							onChange={(e) => {
+							onChange={e => {
 								const val = Number.parseInt(e.target.value, 10);
 								if (val >= 1 && (product.stock ? val <= product.stock : true)) {
 									setQuantity(val);
@@ -128,8 +157,18 @@ export function ProductInfo({ product, storefrontCategoryName }: ProductInfoProp
 							className="flex h-10 w-10 items-center justify-center rounded-full border border-(--store-border) text-(--store-text) transition hover:border-(--store-accent) hover:text-(--store-accent) disabled:cursor-not-allowed disabled:opacity-40"
 							aria-label="Increase quantity"
 						>
-							<svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+							<svg
+								className="h-5 w-5"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M12 4v16m8-8H4"
+								/>
 							</svg>
 						</button>
 					</div>
@@ -140,6 +179,7 @@ export function ProductInfo({ product, storefrontCategoryName }: ProductInfoProp
 			<div className="space-y-3">
 				<button
 					type="button"
+					onClick={handleAddToCart}
 					disabled={isOutOfStock}
 					className="w-full cursor-pointer rounded-full bg-(--store-accent) px-8 py-4 text-center font-semibold text-white shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-lg"
 				>

@@ -116,6 +116,7 @@ const Product = async ({ params }: ProductPageProps) => {
 						<ProductInfo
 							product={product}
 							storefrontCategoryName={storefrontCategoryName}
+							storefrontId={storefront?.id ?? 0}
 						/>
 					</div>
 				</div>

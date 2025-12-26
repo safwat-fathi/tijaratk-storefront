@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 import { fetchPublicOrder } from "@/app/actions/orders";
 import { formatCurrency } from "@/lib/utils/currency";
@@ -11,6 +12,25 @@ export function OrdersLookup() {
   const [order, setOrder] = useState<PublicOrder | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const searchParams = useSearchParams();
+
+	useEffect(() => {
+		const idParam = searchParams.get("id");
+		if (idParam) {
+			setOrderId(idParam);
+			// Auto-fetch
+			startTransition(async () => {
+				setError(null);
+				setOrder(null);
+				const response = await fetchPublicOrder(idParam);
+				if (response.error) {
+					setError(response.error);
+					return;
+				}
+				setOrder(response.data!);
+			});
+		}
+	}, [searchParams]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

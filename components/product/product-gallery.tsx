@@ -12,8 +12,9 @@ interface ProductGalleryProps {
 export function ProductGallery({
 	productName,
 	mainImage,
-	images = [],
+	images: propImages,
 }: ProductGalleryProps) {
+	const images = propImages || [];
 	// Use main_image as default, or first image, or undefined
 	const defaultImage = mainImage || images[0];
 	const [selectedImage, setSelectedImage] = useState<string | undefined>(

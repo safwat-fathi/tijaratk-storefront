@@ -34,15 +34,17 @@ export interface StorefrontHomeData {
 	layout: "grid" | "list";
 }
 
-const fetchStorefront = cache(async (slug: string) => {
-  const response = await storefrontApiService.getStorefront(slug);
+export const getStorefront = cache(async (slug: string) => {
+	const response = await storefrontApiService.getStorefront(slug);
 
-  if (!response.success || !response.data) {
-    return null;
-  }
+	if (!response.success || !response.data) {
+		return null;
+	}
 
-  return response.data;
+	return response.data;
 });
+
+const fetchStorefront = getStorefront;
 
 const fetchStorefrontProductsPage = cache(
 	async (slug: string, page = 1, limit = DEFAULT_PRODUCTS_LIMIT) => {

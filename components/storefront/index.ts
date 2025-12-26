@@ -1,3 +1,4 @@
+export * from "./empty-products-state";
 export * from "./hero";
 export * from "./highlights";
 export * from "./product-card";

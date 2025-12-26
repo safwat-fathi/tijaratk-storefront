@@ -2,6 +2,7 @@ import type { ProductsLayout, StorefrontProduct } from "@/types/services/storefr
 
 import { ProductCard } from "./product-card";
 import { ProductList } from "./product-list";
+import { EmptyProductsState } from "./empty-products-state";
 
 interface Props {
 	products: StorefrontProduct[];
@@ -17,12 +18,7 @@ export function ProductGrid({
 	const isList = layout === "list";
 
 	if (!products.length) {
-		return (
-			<div className="rounded-3xl border border-dashed border-(--store-border) bg-(--store-surface)/50 p-10 text-center text-sm text-(--store-text-muted)">
-				Products will appear here as soon as they&apos;re published in the
-				dashboard.
-			</div>
-		);
+		return <EmptyProductsState storefrontSlug={storefrontSlug} />;
 	}
 
 	return (
