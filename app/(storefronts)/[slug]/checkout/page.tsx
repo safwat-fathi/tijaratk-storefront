@@ -1,12 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useCartStore } from "@/store/cart-store";
 import { placeOrder } from "@/app/actions/orders";
 import { Loader2 } from "lucide-react";
-import Link from 'next/link';
-import { useFormStatus } from 'react-dom';
+import Link from "next/link";
+
+// Hydration-safe mounted check using useSyncExternalStore
+const emptySubscribe = () => () => {};
+function useMounted() {
+	return useSyncExternalStore(
+		emptySubscribe,
+		() => true,
+		() => false
+	);
+}
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -18,10 +27,7 @@ export default function CheckoutPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Hydration check
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   if (!mounted) return null;
 

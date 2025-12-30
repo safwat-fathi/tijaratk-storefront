@@ -1,5 +1,4 @@
 import { HttpService } from "@/services/base";
-import { IPaginatedResponse } from "@/types/services/base";
 import type {
 	CreateStorefrontOrderRequest,
 	CreateStorefrontOrderResponse,

@@ -8,16 +8,16 @@ import { formatCurrency } from "@/lib/utils/currency";
 import type { PublicOrder } from "@/types/services/orders";
 
 export function OrdersLookup() {
-  const [orderId, setOrderId] = useState("");
+  const searchParams = useSearchParams();
+	const [orderId, setOrderId] = useState(searchParams.get("id") ?? "");
+
   const [order, setOrder] = useState<PublicOrder | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const searchParams = useSearchParams();
 
-	useEffect(() => {
+ 	useEffect(() => {
 		const idParam = searchParams.get("id");
 		if (idParam) {
-			setOrderId(idParam);
 			// Auto-fetch
 			startTransition(async () => {
 				setError(null);

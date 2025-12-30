@@ -10,16 +10,16 @@ import { STORAGE_KEYS } from "@/constants";
 import { createParams } from "@/lib/utils/qs";
 
 // Enhanced response type for better type safety
-export interface ServiceResponse<T = any> {
+export interface ServiceResponse<T = unknown> {
 	data?: T;
 	success: boolean;
 	message?: string;
-	errors?: any[];
+	errors?: unknown[];
 }
 
 const DEFAULT_TIMEOUT = 10000;
 
-export default class HttpService<T = any> extends HttpServiceAbstract<T> {
+export default class HttpService<T = unknown> extends HttpServiceAbstract<T> {
 	private readonly _baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 	private _token: string | undefined = undefined;
 	private readonly _timeout: number;
@@ -52,8 +52,7 @@ export default class HttpService<T = any> extends HttpServiceAbstract<T> {
 		route: string,
 		method: TMethod,
 		options: RequestInit = {},
-		params?: IParams,
-		_retryCount: number = 0
+		params?: IParams
 	): Promise<ServiceResponse<R>> {
 		try {
 			// Validate base URL is configured
@@ -125,7 +124,7 @@ export default class HttpService<T = any> extends HttpServiceAbstract<T> {
 			const contentType = response.headers.get("content-type");
 			const isJson = contentType?.includes("application/json");
 
-			let data: any;
+			let data: unknown;
 
 			if (isJson) {
 				try {
@@ -137,7 +136,7 @@ export default class HttpService<T = any> extends HttpServiceAbstract<T> {
 				data = await response.text();
 			}
 
-			return data;
+			return data as ServiceResponse<R>;
 		} catch (error) {
 			return {
 				success: false,
@@ -147,7 +146,8 @@ export default class HttpService<T = any> extends HttpServiceAbstract<T> {
 		}
 	}
 
-	private _prepareBody(body: any): {
+	private _prepareBody(body: unknown): {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		processedBody: any;
 		headers: HeadersInit;
 	} {
@@ -190,7 +190,7 @@ export default class HttpService<T = any> extends HttpServiceAbstract<T> {
 
 	protected async post<R = T>(
 		route: string,
-		body: any,
+		body: unknown,
 		params?: IParams,
 		options?: RequestInit
 	): Promise<ServiceResponse<R>> {
@@ -210,7 +210,7 @@ export default class HttpService<T = any> extends HttpServiceAbstract<T> {
 
 	protected async put<R = T>(
 		route: string,
-		body: any,
+		body: unknown,
 		params?: IParams,
 		options?: RequestInit
 	): Promise<ServiceResponse<R>> {
@@ -230,7 +230,7 @@ export default class HttpService<T = any> extends HttpServiceAbstract<T> {
 
 	protected async patch<R = T>(
 		route: string,
-		body: any,
+		body: unknown,
 		params?: IParams,
 		options?: RequestInit
 	): Promise<ServiceResponse<R>> {

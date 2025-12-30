@@ -14,23 +14,23 @@ export const createQueryString = (
   return params.toString();
 };
 
-export function createParams(params: IParams): any {
-  const searchParams = new URLSearchParams();
+export function createParams(params: IParams): URLSearchParams {
+	const searchParams = new URLSearchParams();
 
-  if (!params) return searchParams;
+	if (!params) return searchParams;
 
-  // Use Object.keys to avoid iterating over prototype properties
-  Object.keys(params).forEach((key) => {
-    const value = params[key];
+	// Use Object.keys to avoid iterating over prototype properties
+	Object.keys(params).forEach(key => {
+		const value = params[key];
 
-    if (Array.isArray(value)) {
-      value.forEach((v) => searchParams.append(key + "[]", String(v)));
-    } else if (value !== undefined && value !== null) {
-      searchParams.set(key, String(value));
-    }
-  });
+		if (Array.isArray(value)) {
+			value.forEach(v => searchParams.append(key + "[]", String(v)));
+		} else if (value !== undefined && value !== null) {
+			searchParams.set(key, String(value));
+		}
+	});
 
-  return searchParams;
+	return searchParams;
 }
 
 export function revertParamsToObj(params: ReadonlyURLSearchParams): IParams {

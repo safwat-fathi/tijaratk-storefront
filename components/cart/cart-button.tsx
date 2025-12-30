@@ -1,22 +1,28 @@
 "use client";
 
 import { ShoppingBag } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useCartStore } from "@/store/cart-store";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+	return twMerge(clsx(inputs));
+}
+
+// Hydration-safe mounted check using useSyncExternalStore
+const emptySubscribe = () => () => {};
+function useMounted() {
+	return useSyncExternalStore(
+		emptySubscribe,
+		() => true,
+		() => false
+	);
 }
 
 export function CartButton({ className }: { className?: string }) {
   const { totalItems, toggleCart } = useCartStore();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   const count = mounted ? totalItems() : 0;
 

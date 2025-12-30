@@ -208,7 +208,11 @@ export function StorefrontPreviewDesigner({
 					<div className="flex-1 space-y-10 overflow-y-auto p-6 pb-16">
 						<StorefrontHero storefront={previewStorefront} />
 						<StorefrontHighlights storefront={previewStorefront} />
-						<ProductGrid products={DUMMY_PRODUCTS} layout={layout} />
+						<ProductGrid
+							products={DUMMY_PRODUCTS}
+							layout={layout}
+							storefrontSlug={slug ?? DEFAULT_STOREFRONT.slug}
+						/>
 					</div>
 				</StorefrontThemeProvider>
 			</section>
