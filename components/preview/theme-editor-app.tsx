@@ -359,6 +359,7 @@ export function ThemeEditorApp({ storefront, slug }: ThemeEditorAppProps) {
 							<ProductGrid
 								products={PREVIEW_PRODUCTS}
 								layout={theme?.layout ?? "grid"}
+								storefrontSlug={slug}
 							/>
 						</div>
 					</section>
