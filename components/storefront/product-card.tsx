@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { formatCurrency } from "@/lib/utils/currency";
 import type { StorefrontProduct } from "@/types/services/storefront";
 
+import { isProductNew } from "@/lib/utils/date";
+
 interface ProductCardProps {
 	product: StorefrontProduct;
 	storefrontSlug: string;
@@ -24,6 +26,7 @@ export function ProductCard({
 	// Use main_image if available, otherwise use first image from images array
 	const cover = product.main_image || product.images?.[0];
 	const priceLabel = formatCurrency(product.price, product.currency, locale);
+	const isNew = isProductNew(product.updated_at || product.created_at);
 
 	return (
 		<Link
@@ -39,9 +42,11 @@ export function ProductCard({
 				style={{ animationDelay: `${index * 60}ms` }}
 			>
 				<div className="relative aspect-square overflow-hidden rounded-2xl bg-(--store-surface-muted)">
-					<span className="absolute top-4 left-4 w-fit inline-flex items-center rounded-full bg-(--store-accent) px-2.5 py-0.5 text-xs font-medium text-(--store-surface)">
-						{t("badge")}
-					</span>
+					{isNew && (
+						<span className="absolute top-4 left-4 w-fit inline-flex items-center rounded-full bg-(--store-accent) px-2.5 py-0.5 text-xs font-medium text-(--store-surface)">
+							{t("new")}
+						</span>
+					)}
 					{cover ? (
 						<Image
 							src={cover}

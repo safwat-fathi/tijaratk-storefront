@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import clsx from "clsx";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { resolveThemeFromStorefront } from "@/lib/storefront/theme";
 import { THEME_PRESETS, type ThemePreset } from "@/lib/storefront/palettes";
 import type {
@@ -83,6 +83,8 @@ export function StorefrontPreviewDesigner({
 	const selectedPreset: ThemePreset =
 		THEME_PRESETS.find(preset => preset.id === selectedPresetId) ??
 		THEME_PRESETS[0];
+
+	const t = useTranslations("Storefront.ThemePreview");
 
 	useEffect(() => {
 		if (!derivedPresetId) return;
@@ -183,12 +185,12 @@ export function StorefrontPreviewDesigner({
 		<div className="space-y-3">
 			{saveError && (
 				<div className="rounded-xl border border-red-200 bg-red-50 p-3 text-xs text-red-700">
-					{saveError}
+					{t("saveError")}
 				</div>
 			)}
 			{isSaved && !saveError && (
 				<div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs text-emerald-700">
-					Theme updated successfully.
+					{t("saveSuccess")}
 				</div>
 			)}
 			<button
@@ -197,7 +199,7 @@ export function StorefrontPreviewDesigner({
 				disabled={isSaving}
 				className="w-full rounded-2xl bg-black px-4 py-3 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:bg-black/40"
 			>
-				{isSaving ? "Saving..." : "Save Theme"}
+				{isSaving ? t("saving") : t("saveTheme")}
 			</button>
 		</div>
 	);
@@ -223,7 +225,7 @@ export function StorefrontPreviewDesigner({
 				<div className="flex-1 space-y-6 overflow-y-auto p-6">
 					<div>
 						<p className="text-xs uppercase tracking-[0.3em] text-(--store-text-muted)">
-							Layout
+							{t("layout")}
 						</p>
 						<div className="mt-3 flex gap-2">
 							{(["grid", "list"] as const).map(value => (
@@ -239,7 +241,7 @@ export function StorefrontPreviewDesigner({
 										}
 									)}
 								>
-									{value === "grid" ? "Grid" : "List"}
+									{value === "grid" ? t("grid") : t("list")}
 								</button>
 							))}
 						</div>
@@ -247,11 +249,10 @@ export function StorefrontPreviewDesigner({
 
 					<header className="space-y-1">
 						<p className="text-xs uppercase tracking-[0.3em] text-(--store-text-muted)">
-							Theme palettes
+							{t("palettesTitle")}
 						</p>
 						<p className="text-sm text-(--store-text-muted)">
-							Pick one of our curated combinations. Selecting a palette updates
-							the preview instantly.
+							{t("palettesDescription")}
 						</p>
 					</header>
 					<div className="grid gap-3 pr-1">
@@ -267,10 +268,10 @@ export function StorefrontPreviewDesigner({
 								}`}
 							>
 								<p className="text-sm font-semibold text-(--store-text)">
-									{preset.name}
+									{t(`presets.${preset.id}.name`)}
 								</p>
 								<p className="text-xs text-(--store-text-muted)">
-									{preset.description}
+									{t(`presets.${preset.id}.description`)}
 								</p>
 								<div className="mt-2 flex gap-1">
 									{Object.values(preset.config.palette ?? {})

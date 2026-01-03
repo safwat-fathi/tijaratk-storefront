@@ -8,143 +8,252 @@
     "switchLocale": "العربية"
   },
   "Storefront": {
-    "notFoundTitle": "Storefront not found",
-    "notFoundDescription": "The requested storefront does not exist.",
-    "requestCustomOrder": "Request Custom Order",
-    "Loading": {
-      "label": "Loading",
-      "text": "Loading..."
-    },
-    "Hero": {
-      "defaultChips": {
-        "curated": "Curated weekly drops",
-        "guest": "Guest-friendly checkout",
-        "secure": "Secure fulfillment"
-      },
-      "logoAlt": "{name} logo",
-      "badge": "Tijaratk Storefront",
-      "descriptionFallback": "Discover thoughtfully sourced products and a guest-first checkout experience.",
-      "explore": "Explore Products"
-    },
-    "Highlights": {
-      "guests": {
-        "title": "Built for guests",
-        "body": "Anonymous checkout keeps friction low—orders are tracked with a single token instead of forcing logins."
-      },
-      "fulfillment": {
-        "title": "Trusted fulfillment",
-        "body": "Every order flows into Tijaratk's fulfillment stack so status updates stay transparent for buyers."
-      },
-      "support": {
-        "title": "{name} support",
-        "body": "Real humans monitor each order. Share your phone or email and we’ll keep you informed at every step."
-      }
-    },
-    "Cart": {
-      "title": "Shopping Cart",
-      "empty": "Your cart is empty",
-      "continueShopping": "Continue Shopping",
-      "noImg": "No img",
-      "subtotal": "Subtotal",
-      "shippingNote": "Shipping and taxes calculated at checkout.",
-      "checkout": "Checkout",
-      "remove": "Remove"
-    },
-    "ProductCard": {
-      "badge": "Badge",
-      "imageComingSoon": "Image coming soon",
-      "viewDetails": "View Details"
-    },
-    "emptyState": {
-      "title": "No Products Yet",
-      "description": "This store is just getting started. Check back soon, or request a custom order for exactly what you need.",
-      "supportingText": "Tell us what you're looking for and we'll create it just for you"
-    },
-    "pagination": {
-      "previous": "Previous",
-      "next": "Next",
-      "pageInfo": "Page {currentPage} of {totalPages}"
-    },
-    "productsSection": {
-      "label": "products",
-      "subtitle": "Freshly stocked for this week"
-    },
-    "CustomOrder": {
-      "title": "Request Custom Order",
-      "subtitle": "Can't find what you're looking for? Describe it below and we'll create it just for you.",
-      "successTitle": "Request Received!",
-      "successMessage": "We have received your custom order request. The seller will review it and send you a quote soon.",
-      "continueShopping": "Continue Shopping",
-      "fields": {
-        "contactInfo": "Contact Information",
-        "descriptionLabel": "What are you looking for?",
-        "descriptionPlaceholder": "Describe the product, materials, colors, measurements, etc...",
-        "budgetLabel": "Target Budget (Optional)",
-        "budgetPlaceholder": "EGP",
-        "imagesLabel": "Reference Images (Optional)",
-        "imagesPlaceholder": "Image upload coming soon",
-        "nameLabel": "Your Name",
-        "phoneLabel": "Phone Number",
-        "phonePlaceholder": "01xxxxxxxxx"
-      },
-      "submit": "Submit Request",
-      "sending": "Sending Request...",
-      "errorGeneric": "An unexpected error occurred.",
-      "errorSubmit": "Failed to submit request"
-    },
-    "Checkout": {
-      "title": "Checkout",
-      "emptyCart": "Your cart is empty",
-      "goBack": "Go back to shopping",
-      "summary": "Order Summary",
-      "total": "Total",
-      "qty": "Qty:",
-      "noImg": "No img",
-      "shippingNote": "Shipping fees may apply upon confirmation.",
-      "contactInfo": "Contact Information",
-      "shippingAddress": "Shipping Address",
-      "additionalNotes": "Additional Notes",
-      "fields": {
-        "fullName": "Full Name",
-        "phone": "Phone Number",
-        "email": "Email (Optional)",
-        "address": "Address",
-        "city": "City",
-        "state": "Governorate/State",
-        "notes": "Order Notes (Optional)",
-        "placeholderPhone": "01xxxxxxxxx"
-      },
-      "submit": "Place Order",
-      "processing": "Processing...",
-      "paymentNote": "Payment is Cash on Delivery (COD).",
-      "errors": {
-        "generic": "An unexpected error occurred. Please try again.",
-        "missingId": "Order created but ID missing. Please contact support."
-      }
-    },
-    "Orders": {
-      "title": "Track your order",
-      "lookup": {
-        "label": "Order lookup",
-        "title": "Track your purchase",
-        "description": "Enter the order ID from your confirmation message to view status and items.",
-        "placeholder": "Order ID",
-        "checking": "Looking up...",
-        "check": "Check status",
-        "orderHash": "Order #",
-        "buyer": "Buyer",
-        "shipping": "Shipping",
-        "items": "Items",
-        "item": "Item",
-        "qty": "Qty",
-        "total": "Total"
-      }
-    },
-    "Product": {
-      "notFound": "Product Not Found",
-      "backToStore": "Back to Store",
-      "addToCartPreview": "Add to Cart (Preview)",
-      "dummyDescription": "Hand-picked item with exemplary craftsmanship. This is a longer description to show how text wraps and looks in the details view. It includes multiple sentences to demonstrate the typography and spacing of the product page."
-    }
-  }
+		"notFoundTitle": "Storefront not found",
+		"notFoundDescription": "The requested storefront does not exist.",
+		"requestCustomOrder": "Request Custom Order",
+		"Loading": {
+			"label": "Loading",
+			"text": "Loading..."
+		},
+		"Hero": {
+			"defaultChips": {
+				"curated": "Curated weekly drops",
+				"guest": "Guest-friendly checkout",
+				"secure": "Secure fulfillment"
+			},
+			"logoAlt": "{name} logo",
+			"badge": "Tijaratk Storefront",
+			"descriptionFallback": "Discover thoughtfully sourced products and a guest-first checkout experience.",
+			"explore": "Explore Products"
+		},
+		"Highlights": {
+			"guests": {
+				"title": "Built for guests",
+				"body": "Anonymous checkout keeps friction low—orders are tracked with a single token instead of forcing logins."
+			},
+			"fulfillment": {
+				"title": "Trusted fulfillment",
+				"body": "Every order flows into Tijaratk's fulfillment stack so status updates stay transparent for buyers."
+			},
+			"support": {
+				"title": "{name} support",
+				"body": "Real humans monitor each order. Share your phone or email and we’ll keep you informed at every step."
+			}
+		},
+		"Cart": {
+			"title": "Shopping Cart",
+			"empty": "Your cart is empty",
+			"continueShopping": "Continue Shopping",
+			"noImg": "No img",
+			"subtotal": "Subtotal",
+			"shippingNote": "Shipping and taxes calculated at checkout.",
+			"checkout": "Checkout",
+			"remove": "Remove"
+		},
+		"ProductCard": {
+			"new": "New",
+			"imageComingSoon": "Image coming soon",
+			"viewDetails": "View Details"
+		},
+		"emptyState": {
+			"title": "No Products Yet",
+			"description": "This store is just getting started. Check back soon, or request a custom order for exactly what you need.",
+			"supportingText": "Tell us what you're looking for and we'll create it just for you"
+		},
+		"pagination": {
+			"previous": "Previous",
+			"next": "Next",
+			"pageInfo": "Page {currentPage} of {totalPages}"
+		},
+		"productsSection": {
+			"label": "products",
+			"subtitle": "Freshly stocked for this week"
+		},
+		"CustomOrder": {
+			"title": "Request Custom Order",
+			"subtitle": "Can't find what you're looking for? Describe it below and we'll create it just for you.",
+			"successTitle": "Request Received!",
+			"successMessage": "We have received your custom order request. The seller will review it and send you a quote soon.",
+			"continueShopping": "Continue Shopping",
+			"fields": {
+				"contactInfo": "Contact Information",
+				"descriptionLabel": "What are you looking for?",
+				"descriptionPlaceholder": "Describe the product, materials, colors, measurements, etc...",
+				"budgetLabel": "Target Budget (Optional)",
+				"budgetPlaceholder": "EGP",
+				"imagesLabel": "Reference Images (Optional)",
+				"imagesPlaceholder": "Image upload coming soon",
+				"nameLabel": "Your Name",
+				"phoneLabel": "Phone Number",
+				"phonePlaceholder": "01xxxxxxxxx"
+			},
+			"submit": "Submit Request",
+			"sending": "Sending Request...",
+			"errorGeneric": "An unexpected error occurred.",
+			"errorSubmit": "Failed to submit request"
+		},
+		"Checkout": {
+			"title": "Checkout",
+			"emptyCart": "Your cart is empty",
+			"goBack": "Go back to shopping",
+			"summary": "Order Summary",
+			"total": "Total",
+			"qty": "Qty:",
+			"noImg": "No img",
+			"shippingNote": "Shipping fees may apply upon confirmation.",
+			"contactInfo": "Contact Information",
+			"shippingAddress": "Shipping Address",
+			"additionalNotes": "Additional Notes",
+			"fields": {
+				"fullName": "Full Name",
+				"phone": "Phone Number",
+				"email": "Email (Optional)",
+				"address": "Address",
+				"city": "City",
+				"state": "Governorate/State",
+				"notes": "Order Notes (Optional)",
+				"placeholderPhone": "01xxxxxxxxx"
+			},
+			"submit": "Place Order",
+			"processing": "Processing...",
+			"paymentNote": "Payment is Cash on Delivery (COD).",
+			"errors": {
+				"generic": "An unexpected error occurred. Please try again.",
+				"missingId": "Order created but ID missing. Please contact support."
+			}
+		},
+		"Orders": {
+			"title": "Track your order",
+			"lookup": {
+				"label": "Order lookup",
+				"title": "Track your purchase",
+				"description": "Enter the order ID from your confirmation message to view status and items.",
+				"placeholder": "Order ID",
+				"checking": "Looking up...",
+				"check": "Check status",
+				"orderHash": "Order #",
+				"buyer": "Buyer",
+				"shipping": "Shipping",
+				"items": "Items",
+				"item": "Item",
+				"qty": "Qty",
+				"total": "Total"
+			}
+		},
+		"Product": {
+			"notFound": "Product Not Found",
+			"backToStore": "Back to Store",
+			"addToCartPreview": "Add to Cart (Preview)",
+			"dummyDescription": "Hand-picked item with exemplary craftsmanship. This is a longer description to show how text wraps and looks in the details view. It includes multiple sentences to demonstrate the typography and spacing of the product page."
+		},
+		"ThemePreview": {
+			"layout": "Layout",
+			"grid": "Grid",
+			"list": "List",
+			"palettesTitle": "Theme palettes",
+			"palettesDescription": "Pick one of our curated combinations. Selecting a palette updates the preview instantly.",
+			"saveTheme": "Save Theme",
+			"saving": "Saving...",
+			"saveSuccess": "Theme updated successfully.",
+			"saveError": "Unable to save theme.",
+			"presets": {
+				"aurora-bloom": {
+					"name": "Aurora Bloom",
+					"description": "Fresh blues with crisp whites for a gallery aesthetic."
+				},
+				"terra-cotta": {
+					"name": "Terra Cotta",
+					"description": "Earthy clay tones for artisan storefronts."
+				},
+				"noir-luxe": {
+					"name": "Noir Luxe",
+					"description": "Deep charcoal with gold highlights."
+				},
+				"sage-harvest": {
+					"name": "Sage Harvest",
+					"description": "Organic greens with soft linen neutrals."
+				},
+				"midnight-plum": {
+					"name": "Midnight Plum",
+					"description": "Moody violets with rosy highlights."
+				},
+				"citrus-pop": {
+					"name": "Citrus Pop",
+					"description": "Energetic oranges balanced with slate grays."
+				},
+				"desert-sun": {
+					"name": "Desert Sun",
+					"description": "Sun-bleached sands with copper highlights."
+				},
+				"coastal-fog": {
+					"name": "Coastal Fog",
+					"description": "Sea-glass tones and misty grays for calm retail."
+				},
+				"sunset-sorbet": {
+					"name": "Sunset Sorbet",
+					"description": "Gradient-ready peaches with berry text."
+				},
+				"forest-muse": {
+					"name": "Forest Muse",
+					"description": "Deep greens paired with cream highlight."
+				},
+				"carbon-rose": {
+					"name": "Carbon Rose",
+					"description": "Bold contrast of charcoal and rose gold."
+				},
+				"amber-koi": {
+					"name": "Amber Koi",
+					"description": "Lush copper and teal for boutique jewelry brands."
+				},
+				"arctic-light": {
+					"name": "Arctic Light",
+					"description": "Minimal frosty whites with cobalt accent."
+				},
+				"velvet-night": {
+					"name": "Velvet Night",
+					"description": "Luxe plum and brass for premium drops."
+				},
+				"cafe-au-lait": {
+					"name": "Café au Lait",
+					"description": "Warm latte hues for lifestyle brands."
+				},
+				"lime-fizz": {
+					"name": "Lime Fizz",
+					"description": "Playful lime and midnight slate."
+				},
+				"bold-meridian": {
+					"name": "Bold Meridian",
+					"description": "Modern cyan + charcoal blend for tech retail."
+				},
+				"petal-prism": {
+					"name": "Petal Prism",
+					"description": "Soft lavender & mint for beauty drops."
+				},
+				"retro-pop": {
+					"name": "Retro Pop",
+					"description": "High-contrast amber and teal for bold shops."
+				},
+				"slate-rose": {
+					"name": "Slate Rose",
+					"description": "Balanced slate neutrals with rose blush."
+				},
+				"steelwave": {
+					"name": "Steelwave",
+					"description": "Industrial blues matched with silver edges."
+				},
+				"mojave-neon": {
+					"name": "Mojave Neon",
+					"description": "Desert dusk neutrals + electric magenta."
+				},
+				"neon-mint": {
+					"name": "Neon Mint",
+					"description": "Vibrant mint balanced with graphite."
+				},
+				"inkwell": {
+					"name": "Inkwell",
+					"description": "Sleek monochrome ideal for editorial products."
+				}
+			}
+		}
+	}
 }

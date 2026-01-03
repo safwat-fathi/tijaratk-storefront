@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import { formatCurrency } from "@/lib/utils/currency";
+import { isProductNew } from "@/lib/utils/date";
 import type { StorefrontProduct } from "@/types/services/storefront";
 
 interface ProductListProps {
@@ -41,6 +42,7 @@ function ProductListItem({
 	const t = useTranslations("Storefront.ProductCard");
 	const cover = product.images?.[0];
 	const priceLabel = formatCurrency(product.price, product.currency, locale);
+	const isNew = isProductNew(product.updated_at || product.created_at);
 
 	return (
 		<article className="flex flex-col gap-4 rounded-3xl border border-(--store-border) bg-(--store-surface) p-4 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg md:flex-row md:items-center">
@@ -77,9 +79,11 @@ function ProductListItem({
 				</div>
 
 				<div className="flex flex-col h-full justify-between gap-10">
-					<span className="self-end w-fit inline-flex items-center rounded-full bg-(--store-accent) px-2.5 py-0.5 text-xs font-medium text-(--store-surface)">
-						{t("badge")}
-					</span>
+					{isNew && (
+						<span className="self-end w-fit inline-flex items-center rounded-full bg-(--store-accent) px-2.5 py-0.5 text-xs font-medium text-(--store-surface)">
+							{t("new")}
+						</span>
+					)}
 					<button
 						type="button"
 						className="inline-flex items-center justify-center gap-2 rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium text-(--store-text) transition hover:border-(--store-accent) hover:text-(--store-accent) cursor-pointer"

@@ -76,6 +76,8 @@ export interface StorefrontProduct {
 	currency?: string;
 	sku?: string;
 	stock?: number;
+	created_at?: string;
+	updated_at?: string;
 	[key: string]: unknown;
 }
 
