@@ -27,6 +27,7 @@ export function ProductInfo({
 			quantity: quantity,
 			image: product.main_image,
 			storefrontId: storefrontId,
+			stock: product.stock,
 		});
 	};
 
@@ -119,7 +120,7 @@ export function ProductInfo({
 							type="button"
 							onClick={decrementQuantity}
 							disabled={quantity <= 1}
-							className="flex h-10 w-10 items-center justify-center rounded-full border border-(--store-border) text-(--store-text) transition hover:border-(--store-accent) hover:text-(--store-accent) disabled:cursor-not-allowed disabled:opacity-40"
+							className="cursor-pointer flex h-10 w-10 items-center justify-center rounded-full border border-(--store-border) text-(--store-text) transition hover:border-(--store-accent) hover:text-(--store-accent) disabled:cursor-not-allowed disabled:opacity-40"
 							aria-label="Decrease quantity"
 						>
 							<svg
@@ -154,7 +155,7 @@ export function ProductInfo({
 							type="button"
 							onClick={incrementQuantity}
 							disabled={product.stock ? quantity >= product.stock : false}
-							className="flex h-10 w-10 items-center justify-center rounded-full border border-(--store-border) text-(--store-text) transition hover:border-(--store-accent) hover:text-(--store-accent) disabled:cursor-not-allowed disabled:opacity-40"
+							className="cursor-pointer flex h-10 w-10 items-center justify-center rounded-full border border-(--store-border) text-(--store-text) transition hover:border-(--store-accent) hover:text-(--store-accent) disabled:cursor-not-allowed disabled:opacity-40"
 							aria-label="Increase quantity"
 						>
 							<svg

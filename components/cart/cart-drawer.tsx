@@ -113,7 +113,8 @@ export function CartDrawer() {
 													onClick={() =>
 														updateQuantity(item.id, item.quantity + 1)
 													}
-													className="p-1 hover:bg-gray-100"
+													className="p-1 hover:bg-gray-100 disabled:opacity-50"
+													disabled={!!item.stock && item.quantity >= item.stock}
 												>
 													<Plus className="h-4 w-4" />
 												</button>
