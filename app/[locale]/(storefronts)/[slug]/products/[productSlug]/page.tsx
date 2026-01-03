@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 
 import { storefrontApiService } from "@/services/api/storefront.service";
 import { ProductGallery } from "@/components/product/product-gallery";
@@ -15,6 +16,7 @@ export async function generateMetadata({
 	params,
 }: ProductPageProps): Promise<Metadata> {
 	const { slug, productSlug } = await params;
+	const t = await getTranslations("Storefront.Product");
 
 	try {
 		const productResponse = await storefrontApiService.getStorefrontProduct(
@@ -23,13 +25,13 @@ export async function generateMetadata({
 		);
 
 		if (!productResponse.success || !productResponse.data) {
-			return { title: "Product Not Found" };
+			return { title: t("notFound") };
 		}
 
 		const product = productResponse.data;
 
 		return {
-			title: `${product.name} | Tijaratk`,
+			title: `${product.name} | Tijaratk`, // Keep Tijaratk hardcoded or use Common.title if available but mixed string is complex
 			description:
 				product.description ||
 				`Buy ${product.name} from our storefront. ${
@@ -47,12 +49,13 @@ export async function generateMetadata({
 			},
 		};
 	} catch {
-		return { title: "Product Not Found" };
+		return { title: t("notFound") };
 	}
 }
 
 const Product = async ({ params }: ProductPageProps) => {
 	const { slug, productSlug } = await params;
+	const t = await getTranslations("Storefront.Product");
 
 	// Fetch product and storefront data
 	const [productResponse, storefrontResponse] = await Promise.all([
@@ -80,11 +83,11 @@ const Product = async ({ params }: ProductPageProps) => {
 					<Link
 						href={`/${slug}`}
 						className="inline-flex items-center gap-2 text-sm font-medium text-(--store-text-muted) transition hover:text-(--store-accent)"
-						aria-label="Back to Store"
+						aria-label={t("backToStore")}
 						prefetch
 					>
 						<svg
-							className="h-5 w-5"
+							className="h-5 w-5 rtl:rotate-180"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -96,7 +99,7 @@ const Product = async ({ params }: ProductPageProps) => {
 								d="M15 19l-7-7 7-7"
 							/>
 						</svg>
-						Back to Store
+						{t("backToStore")}
 					</Link>
 				</div>
 

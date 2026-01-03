@@ -6,6 +6,7 @@ import { useCartStore } from "@/store/cart-store";
 import { placeOrder } from "@/app/actions/orders";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 // Hydration-safe mounted check using useSyncExternalStore
 const emptySubscribe = () => () => {};
@@ -18,6 +19,7 @@ function useMounted() {
 }
 
 export default function CheckoutPage() {
+  const t = useTranslations("Storefront.Checkout");
   const router = useRouter();
   const params = useParams();
   const slug = params?.slug as string;
@@ -34,9 +36,9 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center p-4">
-        <h1 className="text-2xl font-bold mb-4">Your cart is empty</h1>
+        <h1 className="text-2xl font-bold mb-4">{t("emptyCart")}</h1>
         <Link href={`/${slug}`} className="text-blue-600 hover:underline">
-          Go back to shopping
+          {t("goBack")}
         </Link>
       </div>
     );
@@ -87,10 +89,10 @@ export default function CheckoutPage() {
           router.push(`/${slug}/orders?id=${orderId}&new=true`);
       } else {
           // Fallback if no ID
-          setError("Order created but ID missing. Please contact support.");
+          setError(t("errors.missingId"));
       }
     } catch (err) {
-      setError("An unexpected error occurred. Please try again.");
+      setError(t("errors.generic"));
       console.error(err);
       setIsSubmitting(false);
     }
@@ -98,13 +100,13 @@ export default function CheckoutPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold mb-8">Checkout</h1>
+      <h1 className="text-3xl font-bold mb-8">{t("title")}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Order Summary */}
         <div className="md:order-2">
           <div className="bg-gray-50 p-6 rounded-lg sticky top-24">
-            <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
+            <h2 className="text-lg font-semibold mb-4">{t("summary")}</h2>
             <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-4 text-sm">
@@ -112,12 +114,12 @@ export default function CheckoutPage() {
                     {item.image ? (
                         <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
                     ) : (
-                        <div className="h-full w-full bg-gray-100 flex items-center justify-center text-xs text-gray-400">No img</div>
+                        <div className="h-full w-full bg-gray-100 flex items-center justify-center text-xs text-gray-400">{t("noImg")}</div>
                     )}
                   </div>
                   <div className="flex flex-1 flex-col">
                      <span className="font-medium">{item.name}</span>
-                     <span className="text-gray-500">Qty: {item.quantity}</span>
+                     <span className="text-gray-500">{t("qty")} {item.quantity}</span>
                   </div>
                   <div className="font-medium">
                     {(item.price * item.quantity).toLocaleString()} EGP
@@ -128,10 +130,10 @@ export default function CheckoutPage() {
             
             <div className="border-t border-gray-200 mt-4 pt-4 space-y-2">
                <div className="flex justify-between font-medium text-lg">
-                  <span>Total</span>
+                  <span>{t("total")}</span>
                   <span>{totalPrice().toLocaleString()} EGP</span>
                </div>
-               <p className="text-xs text-gray-500">Shipping fees may apply upon confirmation.</p>
+               <p className="text-xs text-gray-500">{t("shippingNote")}</p>
             </div>
           </div>
         </div>
@@ -147,9 +149,9 @@ export default function CheckoutPage() {
                 )}
 
                 <div className="space-y-4">
-                    <h2 className="text-lg font-medium">Contact Information</h2>
+                    <h2 className="text-lg font-medium">{t("contactInfo")}</h2>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Full Name</label>
+                        <label className="block text-sm font-medium text-gray-700">{t("fields.fullName")}</label>
                         <input 
                             name="name" 
                             required 
@@ -158,17 +160,17 @@ export default function CheckoutPage() {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <label className="block text-sm font-medium text-gray-700">{t("fields.phone")}</label>
                         <input 
                             name="phone" 
                             required 
                             type="tel" 
-                            placeholder="01xxxxxxxxx"
+                            placeholder={t("fields.placeholderPhone")}
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm p-2 border"
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Email (Optional)</label>
+                        <label className="block text-sm font-medium text-gray-700">{t("fields.email")}</label>
                         <input 
                             name="email" 
                             type="email" 
@@ -178,9 +180,9 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="space-y-4 pt-4 border-t">
-                    <h2 className="text-lg font-medium">Shipping Address</h2>
+                    <h2 className="text-lg font-medium">{t("shippingAddress")}</h2>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Address</label>
+                        <label className="block text-sm font-medium text-gray-700">{t("fields.address")}</label>
                         <textarea 
                             name="address" 
                             required 
@@ -190,7 +192,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                             <label className="block text-sm font-medium text-gray-700">City</label>
+                             <label className="block text-sm font-medium text-gray-700">{t("fields.city")}</label>
                              <input 
                                 name="city" 
                                 required 
@@ -199,7 +201,7 @@ export default function CheckoutPage() {
                              />
                         </div>
                          <div>
-                             <label className="block text-sm font-medium text-gray-700">Governorate/State</label>
+                             <label className="block text-sm font-medium text-gray-700">{t("fields.state")}</label>
                              <input 
                                 name="state" 
                                 type="text"
@@ -210,9 +212,9 @@ export default function CheckoutPage() {
                 </div>
 
                  <div className="space-y-4 pt-4 border-t">
-                    <h2 className="text-lg font-medium">Additional Notes</h2>
+                    <h2 className="text-lg font-medium">{t("additionalNotes")}</h2>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Order Notes (Optional)</label>
+                        <label className="block text-sm font-medium text-gray-700">{t("fields.notes")}</label>
                         <textarea 
                             name="notes" 
                             rows={2}
@@ -228,13 +230,13 @@ export default function CheckoutPage() {
                         className="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {isSubmitting ? (
-                            <><Loader2 className="animate-spin h-5 w-5 mr-2" /> Processing...</>
+                            <><Loader2 className="animate-spin h-5 w-5 mr-2" /> {t("processing")}</>
                         ) : (
-                            "Place Order"
+                            t("submit")
                         )}
                     </button>
                     <p className="mt-4 text-center text-sm text-gray-500">
-                        Payment is Cash on Delivery (COD).
+                        {t("paymentNote")}
                     </p>
                 </div>
             </form>

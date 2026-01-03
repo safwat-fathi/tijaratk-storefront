@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { useQueryParams } from "@/lib/hooks/useQueryParams";
 import type { StorefrontProductsMeta } from "@/lib/storefront/data";
@@ -32,6 +33,7 @@ export function StorefrontPagination({
 	meta,
 	initialPage,
 }: StorefrontPaginationProps) {
+	const t = useTranslations("Storefront.pagination");
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
@@ -65,7 +67,7 @@ export function StorefrontPagination({
 	return (
 		<div className="flex flex-col gap-3 border-t border-(--store-border) pt-6 text-(--store-text)">
 			<div className="text-sm text-(--store-text-muted)">
-				Page {currentPage} of {totalPages}
+				{t("pageInfo", { currentPage, totalPages })}
 			</div>
 			<div className="flex gap-3">
 				{hasPrev ? (
@@ -74,11 +76,11 @@ export function StorefrontPagination({
 						prefetch={false}
 						className="cursor-pointer inline-flex flex-1 items-center justify-center rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium transition hover:border-(--store-accent) hover:text-(--store-accent)"
 					>
-						Previous
+						{t("previous")}
 					</Link>
 				) : (
 					<span className="inline-flex flex-1 items-center justify-center rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium cursor-not-allowed opacity-40">
-						Previous
+						{t("previous")}
 					</span>
 				)}
 				{hasNext ? (
@@ -87,11 +89,11 @@ export function StorefrontPagination({
 						prefetch={true}
 						className="cursor-pointer inline-flex flex-1 items-center justify-center rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium transition hover:border-(--store-accent) hover:text-(--store-accent)"
 					>
-						Next
+						{t("next")}
 					</Link>
 				) : (
 					<span className="inline-flex flex-1 items-center justify-center rounded-2xl border border-(--store-border) px-4 py-2 text-sm font-medium cursor-not-allowed opacity-40">
-						Next
+						{t("next")}
 					</span>
 				)}
 			</div>

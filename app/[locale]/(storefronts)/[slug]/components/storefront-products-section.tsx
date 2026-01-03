@@ -14,6 +14,7 @@ interface StorefrontProductsSectionProps {
 	page: number;
 	initialProducts?: StorefrontProduct[];
 	initialMeta?: StorefrontProductsMeta;
+  locale: string;
 }
 
 export async function StorefrontProductsSection({
@@ -22,6 +23,7 @@ export async function StorefrontProductsSection({
 	page,
 	initialProducts,
 	initialMeta,
+  locale
 }: StorefrontProductsSectionProps) {
 	const shouldUseInitial = initialMeta?.page === page && initialProducts;
 	const pageResult = shouldUseInitial
@@ -33,7 +35,7 @@ export async function StorefrontProductsSection({
 
 	return (
 		<section className="space-y-8">
-			<ProductGrid products={products} storefrontSlug={slug} layout={layout} />
+			<ProductGrid products={products} storefrontSlug={slug} layout={layout} locale={locale} />
 			{meta ? <StorefrontPagination meta={meta} initialPage={page} /> : null}
 		</section>
 	);

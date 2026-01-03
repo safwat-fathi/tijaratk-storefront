@@ -1,8 +1,12 @@
 import { OrdersLookup } from "@/components/orders/orders-lookup";
+import { getTranslations } from "next-intl/server";
 
-export const metadata = {
-  title: "Track your order",
-};
+export async function generateMetadata() {
+  const t = await getTranslations("Storefront.Orders");
+  return {
+    title: t("title"),
+  };
+}
 
 export default function OrdersPage() {
   return (

@@ -1,21 +1,23 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import type { PublicStorefront } from "@/types/services/storefront";
-import Link from "next/link";
 
 interface StorefrontHeroProps {
-  storefront: PublicStorefront;
+	storefront: PublicStorefront;
 }
 
-const defaultChipMessages = [
-	"Curated weekly drops",
-	"Guest-friendly checkout",
-	"Secure fulfillment",
-];
-
 export function StorefrontHero({ storefront }: StorefrontHeroProps) {
+	const t = useTranslations("Storefront.Hero");
 	const primaryCategory = storefront.storefrontCategory?.primaryCategory;
 	const subCategories = storefront.subCategories || [];
+
+	const defaultChipMessages = [
+		t("defaultChips.curated"),
+		t("defaultChips.guest"),
+		t("defaultChips.secure"),
+	];
 
 	// Use sub-categories if available, otherwise fall back to default messages
 	const displayChips =
@@ -44,7 +46,7 @@ export function StorefrontHero({ storefront }: StorefrontHeroProps) {
 						<span className="relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white/70 shadow">
 							<Image
 								src={storefront.logo_url}
-								alt={`${storefront.name} logo`}
+								alt={t("logoAlt", { name: storefront.name })}
 								fill
 								sizes="44px"
 								className="object-contain"
@@ -54,7 +56,7 @@ export function StorefrontHero({ storefront }: StorefrontHeroProps) {
 						<span className="relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white/70 shadow">
 							<Image
 								src="/logo-no-bg.png"
-								alt={`${storefront.name} logo`}
+								alt={t("logoAlt", { name: storefront.name })}
 								fill
 								sizes="44px"
 								className="object-contain"
@@ -66,7 +68,7 @@ export function StorefrontHero({ storefront }: StorefrontHeroProps) {
 						href="/"
 						className="rounded-full border border-(--store-border)/60 bg-white/70 px-4 py-1 text-xs uppercase tracking-[0.2em] text-(--store-text-muted)"
 					>
-						Tijaratk Storefront
+						{t("badge")}
 					</Link>
 				</div>
 
@@ -95,8 +97,7 @@ export function StorefrontHero({ storefront }: StorefrontHeroProps) {
 						{storefront.name}
 					</h1>
 					<p className="text-lg text-(--store-text-muted)">
-						{storefront.description ||
-							"Discover thoughtfully sourced products and a guest-first checkout experience."}
+						{storefront.description || t("descriptionFallback")}
 					</p>
 				</div>
 
@@ -117,14 +118,8 @@ export function StorefrontHero({ storefront }: StorefrontHeroProps) {
 						href="#products"
 						className="cursor-pointer inline-flex items-center justify-center rounded-full bg-(--store-accent) px-6 py-3 text-white shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:shadow-xl"
 					>
-						Explore Products
+						{t("explore")}
 					</a>
-					{/* <button
-						type="button"
-						className="inline-flex items-center justify-center rounded-full border border-(--store-border) px-6 py-3 text-(--store-text) transition hover:border-(--store-accent)"
-					>
-						View Story
-					</button> */}
 				</div>
 			</div>
 		</section>

@@ -4,6 +4,8 @@ import { X, Minus, Plus, Trash2 } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import { useCartStore } from "@/store/cart-store";
 import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/currency";
+import { useTranslations, useLocale } from "next-intl";
 
 import Link from "next/link";
 
@@ -18,7 +20,9 @@ function useMounted() {
 }
 
 export function CartDrawer() {
-  const { items, isOpen, removeItem, updateQuantity, totalPrice, setOpen } =
+	const t = useTranslations("Storefront.Cart");
+	const locale = useLocale();
+	const { items, isOpen, removeItem, updateQuantity, totalPrice, setOpen } =
 		useCartStore();
 	const mounted = useMounted();
 
@@ -37,14 +41,17 @@ export function CartDrawer() {
 			{/* Drawer */}
 			<div
 				className={cn(
-					"fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-xl transition-transform duration-300 ease-in-out transform",
-					isOpen ? "translate-x-0" : "translate-x-full"
+					"fixed inset-y-0 ltr:right-0 rtl:left-0 z-50 w-full max-w-md bg-white shadow-xl transition-transform duration-300 ease-in-out transform",
+					isOpen
+						? "translate-x-0"
+						: "ltr:translate-x-full rtl:-translate-x-full"
 				)}
+				dir={locale === "ar" ? "rtl" : "ltr"}
 			>
 				<div className="flex flex-col h-full">
 					{/* Header */}
 					<div className="flex items-center justify-between p-4 border-b">
-						<h2 className="text-lg font-semibold">Shopping Cart</h2>
+						<h2 className="text-lg font-semibold">{t("title")}</h2>
 						<button
 							onClick={() => setOpen(false)}
 							className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -57,12 +64,12 @@ export function CartDrawer() {
 					<div className="flex-1 overflow-y-auto p-4 space-y-4">
 						{items.length === 0 ? (
 							<div className="flex flex-col items-center justify-center h-full text-gray-500">
-								<p>Your cart is empty</p>
+								<p>{t("empty")}</p>
 								<button
 									onClick={() => setOpen(false)}
 									className="mt-4 text-blue-600 hover:underline"
 								>
-									Continue Shopping
+									{t("continueShopping")}
 								</button>
 							</div>
 						) : (
@@ -81,7 +88,7 @@ export function CartDrawer() {
 											/>
 										) : (
 											<div className="flex h-full items-center justify-center text-gray-400">
-												<span className="text-xs">No img</span>
+												<span className="text-xs">{t("noImg")}</span>
 											</div>
 										)}
 									</div>
@@ -93,7 +100,7 @@ export function CartDrawer() {
 													<a href={`/product/${item.slug}`}>{item.name}</a>
 												</h3>
 												<p className="ml-4">
-													{item.price.toLocaleString()} EGP
+													{formatCurrency(item.price, undefined, locale)}
 												</p>
 											</div>
 										</div>
@@ -126,7 +133,7 @@ export function CartDrawer() {
 												className="font-medium text-red-600 hover:text-red-500 flex items-center gap-1"
 											>
 												<Trash2 className="h-4 w-4" />
-												<span className="sr-only">Remove</span>
+												<span className="sr-only">{t("remove")}</span>
 											</button>
 										</div>
 									</div>
@@ -139,11 +146,11 @@ export function CartDrawer() {
 					{items.length > 0 && (
 						<div className="border-t p-4 space-y-4 bg-gray-50">
 							<div className="flex justify-between text-base font-medium text-gray-900">
-								<p>Subtotal</p>
-								<p>{totalPrice().toLocaleString()} EGP</p>
+								<p>{t("subtotal")}</p>
+								<p>{formatCurrency(totalPrice(), undefined, locale)}</p>
 							</div>
 							<p className="mt-0.5 text-sm text-gray-500">
-								Shipping and taxes calculated at checkout.
+								{t("shippingNote")}
 							</p>
 							<div className="mt-6">
 								{/* Link to checkout. We need slug. items[0].slug might be product slug. 
@@ -158,7 +165,7 @@ export function CartDrawer() {
                             So generic checkout link might be problematic if we don't know slug.
                             I'll verify how to get slug. `useParams`?
                          */}
-								<CheckoutButton />
+								<CheckoutButton t={t} />
 							</div>
 						</div>
 					)}
@@ -168,21 +175,21 @@ export function CartDrawer() {
 	);
 }
 
-import { useParams } from 'next/navigation';
+import { useParams } from "next/navigation";
 
-function CheckoutButton() {
-     const params = useParams();
-     const slug = params?.slug as string;
-     
-     if (!slug) return null; // Should not happen if inside route
+function CheckoutButton({ t }: { t: any }) {
+	const params = useParams();
+	const slug = params?.slug as string;
 
-     return (
-        <Link
-            href={`/${slug}/checkout`}
-            className="flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-800 w-full"
-            onClick={() => useCartStore.getState().setOpen(false)}
-        >
-            Checkout
-        </Link>
-     );
+	if (!slug) return null; // Should not happen if inside route
+
+	return (
+		<Link
+			href={`/${slug}/checkout`}
+			className="flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-800 w-full"
+			onClick={() => useCartStore.getState().setOpen(false)}
+		>
+			{t("checkout")}
+		</Link>
+	);
 }

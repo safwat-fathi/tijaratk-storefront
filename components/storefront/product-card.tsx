@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 import { formatCurrency } from "@/lib/utils/currency";
 import type { StorefrontProduct } from "@/types/services/storefront";
@@ -8,21 +9,30 @@ interface ProductCardProps {
 	product: StorefrontProduct;
 	storefrontSlug: string;
 	index: number;
+	locale: string;
+	searchParams?: Record<string, string>;
 }
 
 export function ProductCard({
 	product,
 	storefrontSlug,
 	index,
+	locale,
+	searchParams,
 }: ProductCardProps) {
+	const t = useTranslations("Storefront.ProductCard");
 	// Use main_image if available, otherwise use first image from images array
 	const cover = product.main_image || product.images?.[0];
-	const priceLabel = formatCurrency(product.price, product.currency);
+	const priceLabel = formatCurrency(product.price, product.currency, locale);
 
 	return (
 		<Link
-			href={`/${storefrontSlug}/products/${product.slug}`}
+			href={{
+				pathname: `/${storefrontSlug}/products/${product.slug}`,
+				query: searchParams,
+			}}
 			className="block"
+			prefetch
 		>
 			<article
 				className="group flex flex-col overflow-hidden rounded-3xl border border-(--store-border) bg-(--store-surface) p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
@@ -30,7 +40,7 @@ export function ProductCard({
 			>
 				<div className="relative aspect-square overflow-hidden rounded-2xl bg-(--store-surface-muted)">
 					<span className="absolute top-4 left-4 w-fit inline-flex items-center rounded-full bg-(--store-accent) px-2.5 py-0.5 text-xs font-medium text-(--store-surface)">
-						Badge
+						{t("badge")}
 					</span>
 					{cover ? (
 						<Image
@@ -42,7 +52,7 @@ export function ProductCard({
 						/>
 					) : (
 						<div className="flex h-full items-center justify-center text-xs uppercase tracking-[0.2em] text-(--store-text-muted)">
-							Image coming soon
+							{t("imageComingSoon")}
 						</div>
 					)}
 					<div className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100" />

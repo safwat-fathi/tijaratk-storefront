@@ -4,15 +4,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { PublicStorefront } from "@/types/services/storefront";
 import { CartButton } from "@/components/cart/cart-button";
+import { useTranslations } from "next-intl";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 
 interface StorefrontHeaderProps {
-  storefront: PublicStorefront;
+	storefront: PublicStorefront;
 }
 
 export function StorefrontHeader({ storefront }: StorefrontHeaderProps) {
-  return (
+	const t = useTranslations("Storefront");
+
+	return (
 		<header className="sticky top-0 z-40 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
 			<div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+				<LocaleSwitcher />
 				<Link href={`/${storefront.slug}`} className="flex items-center gap-3">
 					{storefront.logo_url ? (
 						<div className="relative h-8 w-8 overflow-hidden rounded-lg border border-gray-100 bg-gray-50">
@@ -39,13 +44,15 @@ export function StorefrontHeader({ storefront }: StorefrontHeaderProps) {
 						{storefront.name}
 					</span>
 				</Link>
+
 				<div className="flex items-center gap-4">
 					<Link
 						href={`/${storefront.slug}/custom-order`}
 						className="text-sm font-medium text-gray-700 hover:text-black transition"
 					>
-						Request Custom Order
+						{t("requestCustomOrder")}
 					</Link>
+
 					<CartButton />
 				</div>
 			</div>

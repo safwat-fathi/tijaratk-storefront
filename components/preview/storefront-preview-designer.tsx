@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import clsx from "clsx";
+import { useLocale } from "next-intl";
 import { resolveThemeFromStorefront } from "@/lib/storefront/theme";
 import { THEME_PRESETS, type ThemePreset } from "@/lib/storefront/palettes";
 import type {
@@ -211,7 +212,9 @@ export function StorefrontPreviewDesigner({
 						<ProductGrid
 							products={DUMMY_PRODUCTS}
 							layout={layout}
-							storefrontSlug={slug ?? DEFAULT_STOREFRONT.slug}
+							storefrontSlug="preview"
+							locale={useLocale()} // Need to import useLocale or check if available
+							searchParams={token ? { token } : undefined}
 						/>
 					</div>
 				</StorefrontThemeProvider>
@@ -257,7 +260,7 @@ export function StorefrontPreviewDesigner({
 								key={preset.id}
 								type="button"
 								onClick={() => setSelectedPresetId(preset.id)}
-								className={`w-full rounded-2xl border px-4 py-3 text-left transition ${
+								className={`cursor-pointer w-full rounded-2xl border px-4 py-3 text-left transition hover:border-(--store-accent) hover:bg-(--store-accent)/5 ${
 									preset.id === selectedPresetId
 										? "border-(--store-accent) bg-(--store-accent)/5"
 										: "border-(--store-border)"

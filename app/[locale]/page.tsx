@@ -1,7 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from '@/i18n/navigation';
+import { getTranslations } from 'next-intl/server';
+import LocaleSwitcher from '@/components/LocaleSwitcher';
 
-export default function Home() {
+export default async function Home() {
+	const t = await getTranslations('common');
+
 	return (
 		<main className="flex min-h-screen items-center justify-center bg-(--store-bg) px-4 text-center text-(--store-text)]">
 			<div className="flex flex-col items-center max-w-xl space-y-4 rounded-3xl border border-dashed border-(--store-border) bg-(--store-surface)/70 px-8 py-10 shadow-sm">
@@ -12,11 +16,14 @@ export default function Home() {
 					height={128}
 				/>
 				<p className="text-xs uppercase tracking-[0.4em] text-black">
-					Tijaratk Storefront
+					{t('title')}
 				</p>
 				<h1 className="text-3xl text-black font-semibold">
-					Choose a storefront slug
+					{t('description')}
 				</h1>
+				
+				<LocaleSwitcher />
+
 				<p className="text-sm text-black">
 					Append a storefront identifier to the URL to view its public
 					storefront, e.g.,

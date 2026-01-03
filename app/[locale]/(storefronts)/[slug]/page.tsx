@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 import {
 	ProductGridSkeleton,
@@ -24,17 +25,18 @@ export async function generateMetadata(props: StorefrontPageProps) {
   const { slug } = await props.params;
   const decodedSlug = decodeURIComponent(slug);
   const metadata = await getStorefrontSeoMetadata(decodedSlug);
+  const t = await getTranslations("Storefront");
 
   return (
     metadata ?? {
-      title: "Storefront not found",
-      description: "The requested storefront does not exist.",
+      title: t("notFoundTitle"),
+      description: t("notFoundDescription"),
     }
   );
 }
 
 export default async function StorefrontPage(props: StorefrontPageProps) {
-	const { slug } = await props.params;
+	const { slug, locale } = await props.params as any; // Cast as any because locale is injected by layout but types might be strict
 	const searchParams = props.searchParams ? await props.searchParams : {};
 	const currentPage = normalizePage(searchParams?.page);
 
@@ -60,6 +62,7 @@ export default async function StorefrontPage(props: StorefrontPageProps) {
 						page={currentPage}
 						initialProducts={data.products}
 						initialMeta={data.productsMeta}
+            locale={locale}
 					/>
 				</Suspense>
 			</main>
