@@ -6,7 +6,6 @@ import { cookies } from "next/headers";
 import { setCookieAction } from "./cookie-store";
 import { STORAGE_KEYS } from "@/constants";
 import { generateCSRFToken } from "./csrf";
-import { loginSchema } from "../(auth)/login/login.schema";
 
 
 interface LoginResult {

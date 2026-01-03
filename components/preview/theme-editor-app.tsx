@@ -1,60 +1,65 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useLocale } from "next-intl";
 
 import {
-  ProductGrid,
-  StorefrontHero,
-  StorefrontHighlights,
-  StorefrontThemeProvider,
+	ProductGrid,
+	StorefrontHero,
+	StorefrontHighlights,
+	StorefrontThemeProvider,
 } from "@/components/storefront";
 import { resolveThemeFromStorefront } from "@/lib/storefront/theme";
 import type {
-  ProductsLayout,
-  PublicStorefront,
-  StorefrontProduct,
-  StorefrontThemeConfig,
-  StorefrontThemePalette,
+	ProductsLayout,
+	PublicStorefront,
+	StorefrontProduct,
+	StorefrontThemeConfig,
+	StorefrontThemePalette,
 } from "@/types/services/storefront";
 
-const PALETTE_FIELDS: Array<{ key: keyof StorefrontThemePalette; label: string }> = [
-  { key: "background", label: "Background" },
-  { key: "surface", label: "Surface" },
-  { key: "surfaceMuted", label: "Surface Muted" },
-  { key: "accent", label: "Accent" },
-  { key: "accentSoft", label: "Accent Soft" },
-  { key: "text", label: "Text" },
-  { key: "textMuted", label: "Text Muted" },
-  { key: "border", label: "Border" },
+const PALETTE_FIELDS: Array<{
+	key: keyof StorefrontThemePalette;
+	label: string;
+}> = [
+	{ key: "background", label: "Background" },
+	{ key: "surface", label: "Surface" },
+	{ key: "surfaceMuted", label: "Surface Muted" },
+	{ key: "accent", label: "Accent" },
+	{ key: "accentSoft", label: "Accent Soft" },
+	{ key: "text", label: "Text" },
+	{ key: "textMuted", label: "Text Muted" },
+	{ key: "border", label: "Border" },
 ];
 
 const PREVIEW_PRODUCTS: StorefrontProduct[] = Array.from({ length: 9 }).map(
-  (_, index) => ({
-    id: index + 1,
-    slug: `preview-product-${index + 1}`,
-    name: `Preview Product ${index + 1}`,
-    description: "Demo product for live preview.",
-    price: 45 + index * 7,
-    currency: "USD",
-    images: [],
-  })
+	(_, index) => ({
+		id: index + 1,
+		slug: `preview-product-${index + 1}`,
+		name: `Preview Product ${index + 1}`,
+		description: "Demo product for live preview.",
+		price: 45 + index * 7,
+		currency: "USD",
+		images: [],
+	})
 );
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const EXPIRATION_MESSAGE =
-  "Editor session expired. Please reopen the theme editor from the dashboard.";
+	"Editor session expired. Please reopen the theme editor from the dashboard.";
 
 type ThemeEditorAppProps = {
 	slug: string;
 	storefront: PublicStorefront;
 };
-	
+
 export function ThemeEditorApp({ storefront, slug }: ThemeEditorAppProps) {
-	console.log("🚀 ~ :49 ~ ThemeEditorApp ~ storefront:", storefront);
+	const locale = useLocale();
+
 	const [token, setToken] = useState<string | null>(null);
 	const [theme, setTheme] = useState<StorefrontThemeConfig | null>(null);
-	
+
 	const [status, setStatus] = useState<
 		"loading" | "idle" | "error" | "expired"
 	>("loading");
@@ -141,7 +146,7 @@ export function ThemeEditorApp({ storefront, slug }: ThemeEditorAppProps) {
 				const themeConfig = (data?.theme_config ??
 					null) as StorefrontThemeConfig | null;
 				setTheme(themeConfig);
-				
+
 				setStatus("idle");
 			} catch (err) {
 				setStatus("error");
@@ -222,7 +227,6 @@ export function ThemeEditorApp({ storefront, slug }: ThemeEditorAppProps) {
 			const updatedTheme = (data?.theme_config ??
 				theme) as StorefrontThemeConfig | null;
 			setTheme(updatedTheme);
-			
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Unable to save theme.");
 		} finally {
@@ -360,6 +364,7 @@ export function ThemeEditorApp({ storefront, slug }: ThemeEditorAppProps) {
 								products={PREVIEW_PRODUCTS}
 								layout={theme?.layout ?? "grid"}
 								storefrontSlug={slug}
+								locale={locale}
 							/>
 						</div>
 					</section>
