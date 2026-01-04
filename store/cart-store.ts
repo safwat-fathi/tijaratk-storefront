@@ -15,7 +15,7 @@ export interface CartItem {
 interface CartState {
 	items: CartItem[];
 	isOpen: boolean;
-	addItem: (item: CartItem) => void;
+	addItem: (item: CartItem, options?: { openDrawer?: boolean }) => void;
 	removeItem: (itemId: number) => void;
 	updateQuantity: (itemId: number, quantity: number) => void;
 	clearCart: () => void;
@@ -31,8 +31,9 @@ export const useCartStore = create<CartState>()(
 			items: [],
 			isOpen: false,
 
-			addItem: newItem => {
+			addItem: (newItem, options) => {
 				set(state => {
+					const shouldOpen = options?.openDrawer ?? true; // Default to true
 					const existingItem = state.items.find(item => item.id === newItem.id);
 					if (existingItem) {
 						const newQuantity = existingItem.quantity + newItem.quantity;
@@ -40,7 +41,10 @@ export const useCartStore = create<CartState>()(
 						const currentStock = newItem.stock ?? existingItem.stock;
 						// Check stock limit
 						if (currentStock && newQuantity > currentStock) {
-							return { items: state.items, isOpen: true }; // No change
+							return {
+								items: state.items,
+								isOpen: shouldOpen ? true : state.isOpen,
+							}; // respecting options
 						}
 
 						return {
@@ -49,17 +53,20 @@ export const useCartStore = create<CartState>()(
 									? { ...item, quantity: newQuantity, stock: currentStock }
 									: item
 							),
-							isOpen: true,
+							isOpen: shouldOpen ? true : state.isOpen,
 						};
 					}
 					// Check stock limit for new item
 					if (newItem.stock && newItem.quantity > newItem.stock) {
-						return { items: state.items, isOpen: true };
+						return {
+							items: state.items,
+							isOpen: shouldOpen ? true : state.isOpen,
+						};
 					}
 
 					return {
 						items: [...state.items, newItem],
-						isOpen: true,
+						isOpen: shouldOpen ? true : state.isOpen,
 					};
 				});
 			},

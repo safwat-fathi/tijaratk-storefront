@@ -50,7 +50,7 @@ export default async function StorefrontPage(props: StorefrontPageProps) {
 	return (
 		<StorefrontThemeProvider theme={data.theme}>
 			<main className="mx-auto flex min-h-screen max-w-6xl flex-col gap-12 px-4 py-10 sm:px-6 lg:px-10">
-				<StorefrontHero storefront={data.storefront} />
+				<StorefrontHero storefront={data.storefront} locale={locale} />
 				<StorefrontHighlights storefront={data.storefront} />
 				<Suspense
 					key={`${slug}-${currentPage}-${data.layout}`}
@@ -62,7 +62,7 @@ export default async function StorefrontPage(props: StorefrontPageProps) {
 						page={currentPage}
 						initialProducts={data.products}
 						initialMeta={data.productsMeta}
-            locale={locale}
+						locale={locale}
 					/>
 				</Suspense>
 			</main>

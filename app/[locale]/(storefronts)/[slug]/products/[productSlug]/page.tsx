@@ -9,7 +9,7 @@ import { ProductInfo } from "@/components/product/product-info";
 import { ProductDescription } from "@/components/product/product-description";
 
 interface ProductPageProps {
-	params: Promise<{ slug: string; productSlug: string }>;
+	params: Promise<{ slug: string; productSlug: string; locale: string }>;
 }
 
 export async function generateMetadata({
@@ -72,8 +72,13 @@ const Product = async ({ params }: ProductPageProps) => {
 		? storefrontResponse.data
 		: null;
 
+	// Await params first to access properties safely
+	const { locale } = await params;
+
 	const storefrontCategoryName =
-		storefront?.storefrontCategory?.primaryCategory?.name_en;
+		locale === "ar"
+			? storefront?.storefrontCategory?.primaryCategory?.name_ar
+			: storefront?.storefrontCategory?.primaryCategory?.name_en;
 
 	return (
 		<main className="min-h-screen bg-(--store-background) px-4 py-8 sm:px-6 lg:px-8">

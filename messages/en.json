@@ -144,7 +144,17 @@
 			"notFound": "Product Not Found",
 			"backToStore": "Back to Store",
 			"addToCartPreview": "Add to Cart (Preview)",
-			"dummyDescription": "Hand-picked item with exemplary craftsmanship. This is a longer description to show how text wraps and looks in the details view. It includes multiple sentences to demonstrate the typography and spacing of the product page."
+			"dummyDescription": "Hand-picked item with exemplary craftsmanship. This is a longer description to show how text wraps and looks in the details view. It includes multiple sentences to demonstrate the typography and spacing of the product page.",
+			"priceNotAvailable": "Price not available",
+			"sku": "SKU",
+			"stock": "Stock",
+			"quantity": "Quantity",
+			"outOfStock": "Out of Stock",
+			"available": "available",
+			"addToCart": "Add to Cart",
+			"buyNow": "Buy Now",
+			"notifyWhenAvailable": "Notify When Available",
+			"productDetails": "Product Details"
 		},
 		"ThemePreview": {
 			"layout": "Layout",

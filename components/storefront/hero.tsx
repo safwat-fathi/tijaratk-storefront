@@ -6,9 +6,10 @@ import type { PublicStorefront } from "@/types/services/storefront";
 
 interface StorefrontHeroProps {
 	storefront: PublicStorefront;
+	locale?: string;
 }
 
-export function StorefrontHero({ storefront }: StorefrontHeroProps) {
+export function StorefrontHero({ storefront, locale }: StorefrontHeroProps) {
 	const t = useTranslations("Storefront.Hero");
 	const primaryCategory = storefront.storefrontCategory?.primaryCategory;
 	const subCategories = storefront.subCategories || [];
@@ -20,10 +21,21 @@ export function StorefrontHero({ storefront }: StorefrontHeroProps) {
 	];
 
 	// Use sub-categories if available, otherwise fall back to default messages
-	const displayChips =
-		subCategories.length > 0
-			? subCategories.map(sub => sub.name)
-			: defaultChipMessages;
+	let displayChips = defaultChipMessages;
+
+	if (subCategories.length > 0) {
+		if (locale === "ar" && primaryCategory?.suggested_sub_categories) {
+			// Map sub-category names to localized names from primary category suggestions
+			displayChips = subCategories.map(sub => {
+				const suggestion = primaryCategory.suggested_sub_categories.find(
+					s => s.name_en === sub.name
+				);
+				return suggestion ? suggestion.name_ar : sub.name;
+			});
+		} else {
+			displayChips = subCategories.map(sub => sub.name);
+		}
+	}
 
 	return (
 		<section className="hero-section relative overflow-hidden rounded-4xl border border-(--store-border) bg-(--store-surface) px-6 py-12 shadow-sm sm:px-10 sm:py-16">
@@ -89,7 +101,9 @@ export function StorefrontHero({ storefront }: StorefrontHeroProps) {
 										d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
 									/>
 								</svg>
-								{primaryCategory.name_en}
+								{locale === "ar"
+									? primaryCategory.name_ar
+									: primaryCategory.name_en}
 							</span>
 						</div>
 					)}

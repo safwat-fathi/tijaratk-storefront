@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import type { StorefrontProduct } from "@/types/services/storefront";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { useParams } from "next/navigation";
 import { useCartStore } from "@/store/cart-store";
 
 interface ProductInfoProps {
@@ -15,6 +18,9 @@ export function ProductInfo({
 	storefrontCategoryName,
 	storefrontId,
 }: ProductInfoProps) {
+	const t = useTranslations("Storefront.Product");
+	const params = useParams();
+	const slug = params?.slug as string;
 	const [quantity, setQuantity] = useState(1);
 	const { addItem } = useCartStore();
 
@@ -42,7 +48,7 @@ export function ProductInfo({
 	};
 
 	const formatPrice = (price?: number) => {
-		if (!price) return "Price not available";
+		if (!price) return t("priceNotAvailable");
 		return `EGP ${price.toLocaleString("en-US", {
 			minimumFractionDigits: 2,
 			maximumFractionDigits: 2,
@@ -93,15 +99,17 @@ export function ProductInfo({
 			<div className="space-y-2 text-sm text-(--store-text-muted)">
 				{product.sku && (
 					<p>
-						<span className="font-medium">SKU:</span> {product.sku}
+						<span className="font-medium">{t("sku")}:</span> {product.sku}
 					</p>
 				)}
 				<p>
-					<span className="font-medium">Stock:</span>{" "}
+					<span className="font-medium">{t("stock")}:</span>{" "}
 					{isOutOfStock ? (
-						<span className="text-red-600">Out of stock</span>
+						<span className="text-red-600">{t("outOfStock")}</span>
 					) : (
-						<span className="text-green-600">{product.stock} available</span>
+						<span className="text-green-600">
+							{product.stock} {t("available")}
+						</span>
 					)}
 				</p>
 			</div>
@@ -113,7 +121,7 @@ export function ProductInfo({
 						htmlFor="quantity"
 						className="text-sm font-medium text-(--store-text)"
 					>
-						Quantity
+						{t("quantity")}
 					</label>
 					<div className="flex items-center gap-4">
 						<button
@@ -184,15 +192,32 @@ export function ProductInfo({
 					disabled={isOutOfStock}
 					className="w-full cursor-pointer rounded-full bg-(--store-accent) px-8 py-4 text-center font-semibold text-white shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-lg"
 				>
-					{isOutOfStock ? "Out of Stock" : "Add to Cart"}
+					{isOutOfStock ? t("outOfStock") : t("addToCart")}
 				</button>
-				<button
-					type="button"
-					disabled={isOutOfStock}
-					className="w-full cursor-pointer rounded-full border-2 border-(--store-accent) bg-transparent px-8 py-4 text-center font-semibold text-(--store-accent) transition hover:bg-(--store-accent)/5 disabled:cursor-not-allowed disabled:opacity-50"
+				<Link
+					href={`/${slug}/checkout`}
+					onClick={() => {
+						addItem(
+							{
+								id: product.id,
+								slug: product.slug,
+								name: product.name,
+								price: product.price ?? 0,
+								quantity: quantity,
+								image: product.main_image,
+								storefrontId: storefrontId,
+								stock: product.stock,
+							},
+							{ openDrawer: false }
+						);
+					}}
+					aria-disabled={isOutOfStock}
+					className={`w-full cursor-pointer flex items-center justify-center rounded-full border-2 border-(--store-accent) bg-transparent px-8 py-4 text-center font-semibold text-(--store-accent) transition hover:bg-(--store-accent)/5 ${
+						isOutOfStock ? "cursor-not-allowed opacity-50" : ""
+					}`}
 				>
-					{isOutOfStock ? "Notify When Available" : "Buy Now"}
-				</button>
+					{isOutOfStock ? t("notifyWhenAvailable") : t("buyNow")}
+				</Link>
 			</div>
 		</div>
 	);
