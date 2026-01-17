@@ -21,8 +21,13 @@ type StorefrontPageProps = {
 	searchParams?: Promise<{ page?: string }>;
 };
 
+import { headers } from "next/headers";
+import { recordStoreVisit } from "@/lib/storefront/data";
+
+// ... existing imports ...
+
 export default async function StorefrontPage(props: StorefrontPageProps) {
-	const { slug, locale } = (await props.params) as any; // Cast as any because locale is injected by layout but types might be strict
+	const { slug, locale } = (await props.params) as any;
 	const searchParams = props.searchParams ? await props.searchParams : {};
 	const currentPage = normalizePage(searchParams?.page);
 
@@ -32,6 +37,14 @@ export default async function StorefrontPage(props: StorefrontPageProps) {
 	if (!data) {
 		notFound();
 	}
+
+	// Record visit (non-blocking)
+	const headersList = await headers();
+	recordStoreVisit(decodedSlug, {
+		userAgent: headersList.get("user-agent") || undefined,
+		referer: headersList.get("referer") || undefined,
+		ip: headersList.get("x-forwarded-for") || undefined,
+	});
 
 	return (
 		<StorefrontThemeProvider theme={data.theme}>

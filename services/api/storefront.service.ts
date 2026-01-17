@@ -83,8 +83,18 @@ export class StorefrontApiService extends HttpService {
 	public createCustomRequest(slug: string, payload: CreateCustomOrderRequest) {
 		return this.post<CustomOrderRequestResponse>(
 			`${slug}/custom-orders`,
-			payload
+			payload,
 		);
+	}
+
+	/**
+	 * POST /public/stores/{slug}/visit
+	 */
+	public recordVisit(
+		slug: string,
+		payload: { ip?: string; userAgent?: string; referer?: string },
+	) {
+		return this.post<unknown>(`${slug}/visit`, payload);
 	}
 }
 

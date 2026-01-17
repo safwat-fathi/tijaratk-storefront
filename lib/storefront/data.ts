@@ -164,3 +164,15 @@ export async function getStorefrontSeoMetadata(
 		},
 	} satisfies Metadata;
 }
+
+export async function recordStoreVisit(
+	slug: string,
+	visitorInfo: { ip?: string; userAgent?: string; referer?: string },
+) {
+	try {
+		await storefrontApiService.recordVisit(slug, visitorInfo);
+	} catch (error) {
+		console.error("Failed to record store visit", error);
+		// Fail silently as this is analytics
+	}
+}
