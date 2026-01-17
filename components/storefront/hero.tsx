@@ -2,17 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
-import type { PublicStorefront } from "@/types/services/storefront";
+import type {
+	PublicStorefront,
+	StorefrontCategory,
+} from "@/types/services/storefront";
 
 interface StorefrontHeroProps {
 	storefront: PublicStorefront;
+	categories?: StorefrontCategory | null;
 	locale?: string;
 }
 
-export function StorefrontHero({ storefront, locale }: StorefrontHeroProps) {
+export function StorefrontHero({
+	storefront,
+	categories,
+	locale,
+}: StorefrontHeroProps) {
 	const t = useTranslations("Storefront.Hero");
-	const primaryCategory = storefront.storefrontCategory?.primaryCategory;
-	const subCategories = storefront.subCategories || [];
+	const primaryCategory = categories;
+	const subCategories = (storefront.suggested_sub_categories as any) || [];
 
 	const defaultChipMessages = [
 		t("defaultChips.curated"),
@@ -26,14 +34,14 @@ export function StorefrontHero({ storefront, locale }: StorefrontHeroProps) {
 	if (subCategories.length > 0) {
 		if (locale === "ar" && primaryCategory?.suggested_sub_categories) {
 			// Map sub-category names to localized names from primary category suggestions
-			displayChips = subCategories.map(sub => {
-				const suggestion = primaryCategory.suggested_sub_categories.find(
-					s => s.name_en === sub.name
+			displayChips = subCategories.map((sub: any) => {
+				const suggestion = primaryCategory?.suggested_sub_categories?.find(
+					(s: any) => s.name_en === sub.name
 				);
 				return suggestion ? suggestion.name_ar : sub.name;
 			});
 		} else {
-			displayChips = subCategories.map(sub => sub.name);
+			displayChips = subCategories.map((sub: any) => sub.name);
 		}
 	}
 

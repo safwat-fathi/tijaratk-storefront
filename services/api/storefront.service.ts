@@ -3,6 +3,9 @@ import type {
 	CreateStorefrontOrderRequest,
 	CreateStorefrontOrderResponse,
 	PublicStorefront,
+	StoreThemeConfig,
+	StoreSeo,
+	StorefrontCategory,
 	StorefrontProduct,
 	StorefrontProductListResponse,
 	StorefrontProductsQuery,
@@ -22,7 +25,7 @@ export interface CustomOrderRequestResponse {
  */
 export class StorefrontApiService extends HttpService {
 	constructor() {
-		super("/public/storefronts");
+		super("/public/stores");
 	}
 
 	/**
@@ -30,6 +33,27 @@ export class StorefrontApiService extends HttpService {
 	 */
 	public getStorefront(slug: string) {
 		return this.get<PublicStorefront>(slug);
+	}
+
+	/**
+	 * GET /public/stores/{slug}/theme
+	 */
+	public getStoreTheme(slug: string) {
+		return this.get<{ config: StoreThemeConfig }>(`${slug}/theme`);
+	}
+
+	/**
+	 * GET /public/stores/{slug}/seo
+	 */
+	public getStoreSeo(slug: string) {
+		return this.get<StoreSeo>(`${slug}/seo`);
+	}
+
+	/**
+	 * GET /public/stores/{slug}/categories
+	 */
+	public getStoreCategories(slug: string) {
+		return this.get<StorefrontCategory>(`${slug}/categories`);
 	}
 
 	/**

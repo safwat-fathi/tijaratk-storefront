@@ -23,9 +23,14 @@ export function ProductCard({
 	searchParams,
 }: ProductCardProps) {
 	const t = useTranslations("Storefront.ProductCard");
-	// Use main_image if available, otherwise use first image from images array
-	const cover = product.main_image || product.images?.[0];
-	const priceLabel = formatCurrency(product.price, product.currency, locale);
+	// Use image_url (from backend), main_image if available, otherwise use first image from images array
+	const cover = product.image_url || product.main_image || product.images?.[0];
+
+	const variant =
+		product.variants?.find(v => v.is_default) || product.variants?.[0];
+	const price = variant?.sale_price || variant?.price || product.price || 0;
+
+	const priceLabel = formatCurrency(price, product.currency, locale);
 	const isNew = isProductNew(product.updated_at || product.created_at);
 
 	return (

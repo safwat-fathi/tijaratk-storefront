@@ -13,12 +13,29 @@ export interface StorefrontThemePalette {
   border?: string;
 }
 
-export interface StorefrontThemeConfig {
-  primaryColor?: string;
-  layout?: ProductsLayout;
-  palette?: StorefrontThemePalette;
-  [key: string]: unknown;
+export interface StoreThemeConfig {
+	primaryColor?: string;
+	layout?: ProductsLayout;
+	palette?: StorefrontThemePalette;
+	logo?: string;
+	[key: string]: unknown;
 }
+
+export const DEFAULT_STORE_THEME: StoreThemeConfig = {
+	primaryColor: "#000000",
+	layout: "grid",
+	palette: {
+		background: "#ffffff",
+		surface: "#f9fafb",
+		surfaceMuted: "#e5e7eb",
+		accent: "#000000",
+		accentSoft: "#e5e7eb",
+		text: "#111827",
+		textMuted: "#6b7280",
+		border: "#e5e7eb",
+	},
+	logo: "/logo.png",
+};
 
 export interface Category {
 	id: number;
@@ -30,11 +47,11 @@ export interface Category {
 
 export interface StorefrontCategory {
 	id: number;
-	storefrontId: number;
-	primaryCategoryId: number;
-	primaryCategory: Category;
-	secondaryCategoryId?: number;
-	secondaryCategory?: Category;
+	key: string;
+	name_en: string;
+	name_ar: string;
+	parent_id?: number;
+	suggested_sub_categories?: { name_en: string; name_ar: string }[];
 }
 
 export interface SubCategory {
@@ -46,23 +63,43 @@ export interface SubCategory {
 	is_custom: boolean;
 }
 
+export interface StoreSeo {
+	title?: string;
+	description?: string;
+	image?: string;
+	canonical_url?: string;
+	og?: {
+		image?: string;
+		title?: string;
+		description?: string;
+	};
+	[key: string]: unknown;
+}
+
 export interface PublicStorefront {
 	id: number;
 	slug: string;
 	name: string;
 	description?: string;
-	logo_url?: string;
+
+	address_text?: string;
 	cover_image_url?: string;
-	theme_config?: StorefrontThemeConfig;
-	tracking_config?: Record<string, string | undefined>;
-	seo?: {
-		title?: string;
-		description?: string;
-		image?: string;
-	};
-	storefrontCategory?: StorefrontCategory;
-	subCategories?: SubCategory[];
+	logo_url?: string;
+	storefrontCategory?: any;
+	subCategories?: any[];
+	theme_config?: StoreThemeConfig;
+	seo?: StoreSeo;
 	[key: string]: unknown;
+}
+
+export interface StorefrontVariant {
+	id: string;
+	stock: number;
+	price: number;
+	sale_price?: number;
+	sku?: string;
+	is_default: boolean;
+	is_active: boolean;
 }
 
 export interface StorefrontProduct {
@@ -70,6 +107,7 @@ export interface StorefrontProduct {
 	slug: string;
 	name: string;
 	description?: string;
+	image_url?: string;
 	main_image?: string;
 	images?: string[];
 	price?: number;
@@ -78,33 +116,34 @@ export interface StorefrontProduct {
 	stock?: number;
 	created_at?: string;
 	updated_at?: string;
+	variants?: StorefrontVariant[];
 	[key: string]: unknown;
 }
 
 export interface StorefrontProductsQuery extends IParams {
-  page?: number;
-  limit?: number;
-  keyword?: string;
+	page?: number;
+	limit?: number;
+	keyword?: string;
 }
 
-export type StorefrontProductListResponse = IPaginatedResponse<StorefrontProduct>;
+export type StorefrontProductListResponse =
+	IPaginatedResponse<StorefrontProduct>;
 
 export interface StorefrontOrderItem {
-  productId: number;
-  quantity: number;
+	product_id: number | string;
+	variant_id?: string;
+	quantity: number;
 }
 
 export interface CreateStorefrontOrderRequest {
-  buyer_name: string;
-  buyer_phone: string;
-  buyer_email?: string;
-  shipping_address_line1: string;
-  shipping_address_line2?: string;
-  shipping_city: string;
-  shipping_state?: string;
-  shipping_postal_code?: string;
-  notes?: string;
-  items: StorefrontOrderItem[];
+	buyer_name: string;
+	whatsapp_number: string;
+	buyer_phone?: string;
+	buyer_email?: string;
+	address_line1: string;
+	area: string;
+	notes?: string;
+	items: StorefrontOrderItem[];
 }
 
 export interface CreateStorefrontOrderResponse {

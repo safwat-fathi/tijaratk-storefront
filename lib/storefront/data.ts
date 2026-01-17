@@ -11,6 +11,7 @@ import {
   resolveThemeFromStorefront,
   type StorefrontThemeTokens,
 } from "./theme";
+import type { StorefrontCategory } from "@/types/services/storefront";
 
 export interface StorefrontProductsMeta {
 	page?: number;
@@ -30,9 +31,16 @@ export interface StorefrontHomeData {
 	storefront: PublicStorefront;
 	products: StorefrontProduct[];
 	productsMeta?: StorefrontProductsMeta;
+	categories?: StorefrontCategory | null;
 	theme: StorefrontThemeTokens;
 	layout: "grid" | "list";
 }
+
+const getStorefrontCategories = cache(async (slug: string) => {
+	const response = await storefrontApiService.getStoreCategories(slug);
+	if (!response.success) return null;
+	return response.data;
+});
 
 export const getStorefront = cache(async (slug: string) => {
 	const response = await storefrontApiService.getStorefront(slug);
@@ -54,20 +62,17 @@ const fetchStorefrontProductsPage = cache(
 		});
 
 		if (!response.success || !response.data) {
-			console.warn(
-				"Failed to load storefront products",
-				response.message,
-			);
+			console.warn("Failed to load storefront products", response.message);
 			return null;
 		}
 
 		return response.data;
-	},
+	}
 );
 
 export async function getStorefrontProductsPage(
 	slug: string,
-	options?: { page?: number; limit?: number },
+	options?: { page?: number; limit?: number }
 ): Promise<StorefrontProductsPageResult | null> {
 	const { page = 1, limit = DEFAULT_PRODUCTS_LIMIT } = options ?? {};
 	const response = await fetchStorefrontProductsPage(slug, page, limit);
@@ -89,28 +94,32 @@ export async function getStorefrontProductsPage(
 
 export async function getStorefrontHomeData(
 	slug: string,
-	options?: { page?: number; limit?: number },
+	options?: { page?: number; limit?: number }
 ): Promise<StorefrontHomeData | null> {
 	const { page = 1, limit = DEFAULT_PRODUCTS_LIMIT } = options ?? {};
 	const storefrontPromise = fetchStorefront(slug);
 	const productsPromise = getStorefrontProductsPage(slug, { page, limit });
+	const categoriesPromise = getStorefrontCategories(slug);
 
-  const storefront = await storefrontPromise;
-  
-  if (!storefront) {
-    return null;
-  }
+	const storefront = await storefrontPromise;
 
-	const products = await productsPromise;
+	if (!storefront) {
+		return null;
+	}
+
+	const [products, categories] = await Promise.all([
+		productsPromise,
+		categoriesPromise,
+	]);
 
 	const layout = storefront.theme_config?.layout === "list" ? "list" : "grid";
-
 	const productsMeta = products?.meta;
 
 	return {
 		storefront,
 		products: products?.items ?? [],
 		productsMeta,
+		categories,
 		theme: resolveThemeFromStorefront(storefront),
 		layout,
 	};
@@ -119,29 +128,39 @@ export async function getStorefrontHomeData(
 export async function getStorefrontSeoMetadata(
   slug: string,
 ): Promise<Metadata | null> {
-  const storefront = await fetchStorefront(slug);
+	// Fetch SEO data specifically
+	const seoResponse = await storefrontApiService.getStoreSeo(slug);
+	const storefrontPromise = fetchStorefront(slug);
 
-  if (!storefront) {
-    return null;
-  }
+	const [seoResult, storefront] = await Promise.all([
+		seoResponse,
+		storefrontPromise,
+	]);
 
-  return {
-    title: storefront.seo?.title || storefront.name,
-    description:
-      storefront.seo?.description ||
-      storefront.description ||
-      "Discover the latest drops from Tijaratk storefronts.",
-    openGraph: {
-      title: storefront.seo?.title || storefront.name,
-      description:
-        storefront.seo?.description ||
-        storefront.description ||
-        "Shop curated products powered by Tijaratk.",
-      images: storefront.seo?.image
-        ? [{ url: storefront.seo.image }]
-        : storefront.cover_image_url
-          ? [{ url: storefront.cover_image_url }]
-          : undefined,
-    },
-  } satisfies Metadata;
+	if (!storefront) {
+		return null;
+	}
+
+	const seo = seoResult.success ? seoResult.data : null;
+
+	// Use fetched SEO or fallback to store data
+	const title = seo?.title || storefront.name;
+	const description =
+		seo?.description ||
+		storefront.description ||
+		"Discover the latest drops from Tijaratk storefronts.";
+
+	return {
+		title,
+		description,
+		openGraph: {
+			title,
+			description,
+			images: seo?.og?.image
+				? [{ url: seo.og.image }]
+				: storefront.cover_image_url
+				? [{ url: storefront.cover_image_url }]
+				: undefined,
+		},
+	} satisfies Metadata;
 }

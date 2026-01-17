@@ -18,10 +18,7 @@ function decodeToken(token?: string | null) {
 			).toString("utf-8")
 		);
 
-		if (
-			!decoded?.storefrontId ||
-			!decoded?.scope?.includes("storefront:edit-theme")
-		) {
+		if (!decoded?.storeId || !decoded?.scope?.includes("store:edit-theme")) {
 			return null;
 		}
 

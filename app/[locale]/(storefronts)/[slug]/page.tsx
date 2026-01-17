@@ -21,22 +21,8 @@ type StorefrontPageProps = {
 	searchParams?: Promise<{ page?: string }>;
 };
 
-export async function generateMetadata(props: StorefrontPageProps) {
-  const { slug } = await props.params;
-  const decodedSlug = decodeURIComponent(slug);
-  const metadata = await getStorefrontSeoMetadata(decodedSlug);
-  const t = await getTranslations("Storefront");
-
-  return (
-    metadata ?? {
-      title: t("notFoundTitle"),
-      description: t("notFoundDescription"),
-    }
-  );
-}
-
 export default async function StorefrontPage(props: StorefrontPageProps) {
-	const { slug, locale } = await props.params as any; // Cast as any because locale is injected by layout but types might be strict
+	const { slug, locale } = (await props.params) as any; // Cast as any because locale is injected by layout but types might be strict
 	const searchParams = props.searchParams ? await props.searchParams : {};
 	const currentPage = normalizePage(searchParams?.page);
 
@@ -50,7 +36,11 @@ export default async function StorefrontPage(props: StorefrontPageProps) {
 	return (
 		<StorefrontThemeProvider theme={data.theme}>
 			<main className="mx-auto flex min-h-screen max-w-6xl flex-col gap-12 px-4 py-10 sm:px-6 lg:px-10">
-				<StorefrontHero storefront={data.storefront} locale={locale} />
+				<StorefrontHero
+					storefront={data.storefront}
+					categories={data.categories}
+					locale={locale}
+				/>
 				<StorefrontHighlights storefront={data.storefront} />
 				<Suspense
 					key={`${slug}-${currentPage}-${data.layout}`}

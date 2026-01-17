@@ -41,11 +41,12 @@ export async function generateMetadata({
 				title: product.name,
 				description:
 					product.description || `Buy ${product.name} from our storefront.`,
-				images: product.main_image
-					? [{ url: product.main_image }]
-					: product.images?.[0]
-					? [{ url: product.images[0] }]
-					: undefined,
+				images:
+					product.image_url || product.main_image
+						? [{ url: product.image_url || product.main_image || "" }]
+						: product.images?.[0]
+						? [{ url: product.images[0] }]
+						: undefined,
 			},
 		};
 	} catch {
@@ -57,11 +58,13 @@ const Product = async ({ params }: ProductPageProps) => {
 	const { slug, productSlug } = await params;
 	const t = await getTranslations("Storefront.Product");
 
-	// Fetch product and storefront data
-	const [productResponse, storefrontResponse] = await Promise.all([
-		storefrontApiService.getStorefrontProduct(slug, productSlug),
-		storefrontApiService.getStorefront(slug),
-	]);
+	// Fetch product, storefront, and category data
+	const [productResponse, storefrontResponse, categoryResponse] =
+		await Promise.all([
+			storefrontApiService.getStorefrontProduct(slug, productSlug),
+			storefrontApiService.getStorefront(slug),
+			storefrontApiService.getStoreCategories(slug),
+		]);
 
 	if (!productResponse.success || !productResponse.data) {
 		notFound();
@@ -71,14 +74,13 @@ const Product = async ({ params }: ProductPageProps) => {
 	const storefront = storefrontResponse.success
 		? storefrontResponse.data
 		: null;
+	const category = categoryResponse.success ? categoryResponse.data : null;
 
 	// Await params first to access properties safely
 	const { locale } = await params;
 
 	const storefrontCategoryName =
-		locale === "ar"
-			? storefront?.storefrontCategory?.primaryCategory?.name_ar
-			: storefront?.storefrontCategory?.primaryCategory?.name_en;
+		locale === "ar" ? category?.name_ar : category?.name_en;
 
 	return (
 		<main className="min-h-screen bg-(--store-background) px-4 py-8 sm:px-6 lg:px-8">
@@ -114,7 +116,7 @@ const Product = async ({ params }: ProductPageProps) => {
 					<div>
 						<ProductGallery
 							productName={product.name}
-							mainImage={product.main_image}
+							mainImage={product.image_url || product.main_image}
 							images={product.images}
 						/>
 					</div>

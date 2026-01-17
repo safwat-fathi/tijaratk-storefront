@@ -10,9 +10,9 @@ import type {
 	ProductsLayout,
 	PublicStorefront,
 	StorefrontProduct,
-	StorefrontThemeConfig,
 	StorefrontThemePalette,
 } from "@/types/services/storefront";
+import { StoreThemeConfig } from "@/types/services/storefront";
 import {
 	StorefrontThemeProvider,
 	StorefrontHero,
@@ -67,14 +67,15 @@ export function StorefrontPreviewDesigner({
 }: StorefrontPreviewDesignerProps) {
 	const baseStorefront = storefront ?? DEFAULT_STOREFRONT;
 	const derivedPresetId = useMemo(
-		() => findPresetIdFromTheme(storefront?.theme_config),
+		() => findPresetIdFromTheme(storefront?.theme_config as StoreThemeConfig),
 		[storefront]
 	);
 	const [selectedPresetId, setSelectedPresetId] = useState(
 		derivedPresetId ?? THEME_PRESETS[0]?.id
 	);
 	const initialLayout =
-		(storefront?.theme_config?.layout as ProductsLayout) ?? "grid";
+		((storefront?.theme_config as StoreThemeConfig)
+			?.layout as ProductsLayout) ?? "grid";
 	const [layout, setLayout] = useState<ProductsLayout>(initialLayout);
 	const [isSaving, setIsSaving] = useState(false);
 	const [saveError, setSaveError] = useState<string | null>(null);
@@ -93,7 +94,8 @@ export function StorefrontPreviewDesigner({
 
 	useEffect(() => {
 		const layoutFromTheme =
-			(storefront?.theme_config?.layout as ProductsLayout) ?? "grid";
+			((storefront?.theme_config as StoreThemeConfig)
+				?.layout as ProductsLayout) ?? "grid";
 		setLayout(layoutFromTheme);
 	}, [storefront]);
 
@@ -110,9 +112,9 @@ export function StorefrontPreviewDesigner({
 		setIsSaved(false);
 	}, [selectedPresetId, layout]);
 
-	const currentThemeConfig = useMemo<StorefrontThemeConfig>(() => {
+	const currentThemeConfig = useMemo<StoreThemeConfig>(() => {
 		return {
-			...(storefront?.theme_config ?? {}),
+			...((storefront?.theme_config as StoreThemeConfig) ?? {}),
 			...selectedPreset.config,
 			layout,
 			presetId: selectedPreset.id,
@@ -147,17 +149,14 @@ export function StorefrontPreviewDesigner({
 		setIsSaved(false);
 
 		try {
-			const response = await fetch(
-				`${API_BASE_URL}/storefronts/${slug}/theme`,
-				{
-					method: "PATCH",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
-					},
-					body: JSON.stringify({ theme: currentThemeConfig }),
-				}
-			);
+			const response = await fetch(`${API_BASE_URL}/stores/${slug}/theme`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify({ theme: currentThemeConfig }),
+			});
 
 			if (response.status === 401 || response.status === 403) {
 				setSaveError(EXPIRATION_MESSAGE);
@@ -299,11 +298,11 @@ export function StorefrontPreviewDesigner({
 }
 
 function findPresetIdFromTheme(
-	theme?: StorefrontThemeConfig | null
+	theme?: StoreThemeConfig | null
 ): string | undefined {
 	if (!theme) return undefined;
 
-	const themeWithPreset = theme as StorefrontThemeConfig & {
+	const themeWithPreset = theme as StoreThemeConfig & {
 		presetId?: string;
 	};
 	if (themeWithPreset.presetId) {
@@ -321,8 +320,8 @@ function findPresetIdFromTheme(
 }
 
 function doesThemeMatchPreset(
-	theme: StorefrontThemeConfig,
-	presetConfig: StorefrontThemeConfig
+	theme: StoreThemeConfig,
+	presetConfig: StoreThemeConfig
 ) {
 	if (
 		(theme.primaryColor ?? "").toLowerCase() !==

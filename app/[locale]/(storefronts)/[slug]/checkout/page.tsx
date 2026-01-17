@@ -53,20 +53,20 @@ export default function CheckoutPage() {
     
     // Prepare items for API
     const orderItems = items.map(item => ({
-      productId: item.id,
-      quantity: item.quantity,
-    }));
+			product_id: item.id,
+			quantity: item.quantity,
+		}));
 
     const payload = {
-      buyer_name: formData.get("name") as string,
-      buyer_phone: formData.get("phone") as string,
-      buyer_email: (formData.get("email") as string) || undefined,
-      shipping_address_line1: formData.get("address") as string,
-      shipping_city: formData.get("city") as string,
-      shipping_state: (formData.get("state") as string) || undefined,
-      notes: (formData.get("notes") as string) || undefined,
-      items: orderItems,
-    };
+			buyer_name: formData.get("name") as string,
+			whatsapp_number: formData.get("phone") as string,
+			buyer_phone: formData.get("phone") as string, // keep for redundancy if needed, or remove? DTO allowed it.
+			buyer_email: (formData.get("email") as string) || undefined,
+			address_line1: formData.get("address") as string,
+			area: formData.get("city") as string,
+			notes: (formData.get("notes") as string) || undefined,
+			items: orderItems,
+		};
 
     try {
       const result = await placeOrder(slug, payload);

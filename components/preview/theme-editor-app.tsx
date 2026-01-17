@@ -10,11 +10,13 @@ import {
 	StorefrontThemeProvider,
 } from "@/components/storefront";
 import { resolveThemeFromStorefront } from "@/lib/storefront/theme";
+import {
+	StoreThemeConfig,
+} from "@/types/services/storefront";
 import type {
 	ProductsLayout,
 	PublicStorefront,
 	StorefrontProduct,
-	StorefrontThemeConfig,
 	StorefrontThemePalette,
 } from "@/types/services/storefront";
 
@@ -58,7 +60,7 @@ export function ThemeEditorApp({ storefront, slug }: ThemeEditorAppProps) {
 	const locale = useLocale();
 
 	const [token, setToken] = useState<string | null>(null);
-	const [theme, setTheme] = useState<StorefrontThemeConfig | null>(null);
+	const [theme, setTheme] = useState<StoreThemeConfig | null>(null);
 
 	const [status, setStatus] = useState<
 		"loading" | "idle" | "error" | "expired"
@@ -144,7 +146,7 @@ export function ThemeEditorApp({ storefront, slug }: ThemeEditorAppProps) {
 
 				const data = await response.json();
 				const themeConfig = (data?.theme_config ??
-					null) as StorefrontThemeConfig | null;
+					null) as StoreThemeConfig | null;
 				setTheme(themeConfig);
 
 				setStatus("idle");
@@ -176,7 +178,7 @@ export function ThemeEditorApp({ storefront, slug }: ThemeEditorAppProps) {
 			return {
 				...(current ?? {}),
 				palette,
-			} as StorefrontThemeConfig;
+			} as StoreThemeConfig;
 		});
 	};
 
@@ -225,7 +227,7 @@ export function ThemeEditorApp({ storefront, slug }: ThemeEditorAppProps) {
 
 			const data = await response.json();
 			const updatedTheme = (data?.theme_config ??
-				theme) as StorefrontThemeConfig | null;
+				theme) as StoreThemeConfig | null;
 			setTheme(updatedTheme);
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Unable to save theme.");

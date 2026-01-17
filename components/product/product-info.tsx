@@ -24,21 +24,29 @@ export function ProductInfo({
 	const [quantity, setQuantity] = useState(1);
 	const { addItem } = useCartStore();
 
+	// Derive display values from default variant or fallback to product base values
+	const variant =
+		product.variants?.find(v => v.is_default) || product.variants?.[0];
+	const stock = variant?.stock ?? product.stock ?? 0;
+	// Prefer sale_price if available
+	const price = variant?.sale_price || variant?.price || product.price || 0;
+	const sku = variant?.sku || product.sku;
+
 	const handleAddToCart = () => {
 		addItem({
 			id: product.id,
 			slug: product.slug,
 			name: product.name,
-			price: product.price ?? 0,
+			price: price,
 			quantity: quantity,
-			image: product.main_image,
+			image: product.image_url || product.main_image,
 			storefrontId: storefrontId,
-			stock: product.stock,
+			stock: stock,
 		});
 	};
 
 	const incrementQuantity = () => {
-		if (product.stock && quantity >= product.stock) return;
+		if (stock && quantity >= stock) return;
 		setQuantity(prev => prev + 1);
 	};
 
@@ -47,15 +55,15 @@ export function ProductInfo({
 		setQuantity(prev => prev - 1);
 	};
 
-	const formatPrice = (price?: number) => {
-		if (!price) return t("priceNotAvailable");
-		return `EGP ${price.toLocaleString("en-US", {
+	const formatPrice = (priceVal?: number) => {
+		if (!priceVal) return t("priceNotAvailable");
+		return `EGP ${priceVal.toLocaleString("en-US", {
 			minimumFractionDigits: 2,
 			maximumFractionDigits: 2,
 		})}`;
 	};
 
-	const isOutOfStock = !product.stock || product.stock === 0;
+	const isOutOfStock = stock === 0;
 
 	return (
 		<div className="space-y-6">
@@ -91,15 +99,15 @@ export function ProductInfo({
 			{/* Price */}
 			<div className="border-y border-(--store-border) py-6">
 				<p className="text-3xl font-semibold text-(--store-text)">
-					{formatPrice(product.price)}
+					{formatPrice(price)}
 				</p>
 			</div>
 
 			{/* SKU and Stock */}
 			<div className="space-y-2 text-sm text-(--store-text-muted)">
-				{product.sku && (
+				{sku && (
 					<p>
-						<span className="font-medium">{t("sku")}:</span> {product.sku}
+						<span className="font-medium">{t("sku")}:</span> {sku}
 					</p>
 				)}
 				<p>
@@ -108,7 +116,7 @@ export function ProductInfo({
 						<span className="text-red-600">{t("outOfStock")}</span>
 					) : (
 						<span className="text-green-600">
-							{product.stock} {t("available")}
+							{stock} {t("available")}
 						</span>
 					)}
 				</p>
@@ -151,18 +159,18 @@ export function ProductInfo({
 							value={quantity}
 							onChange={e => {
 								const val = Number.parseInt(e.target.value, 10);
-								if (val >= 1 && (product.stock ? val <= product.stock : true)) {
+								if (val >= 1 && (stock ? val <= stock : true)) {
 									setQuantity(val);
 								}
 							}}
 							min={1}
-							max={product.stock}
+							max={stock}
 							className="h-10 w-16 rounded-2xl border border-(--store-border) bg-(--store-surface) text-center text-(--store-text) focus:border-(--store-accent) focus:outline-none focus:ring-2 focus:ring-(--store-accent)/20"
 						/>
 						<button
 							type="button"
 							onClick={incrementQuantity}
-							disabled={product.stock ? quantity >= product.stock : false}
+							disabled={stock ? quantity >= stock : false}
 							className="cursor-pointer flex h-10 w-10 items-center justify-center rounded-full border border-(--store-border) text-(--store-text) transition hover:border-(--store-accent) hover:text-(--store-accent) disabled:cursor-not-allowed disabled:opacity-40"
 							aria-label="Increase quantity"
 						>
@@ -202,11 +210,11 @@ export function ProductInfo({
 								id: product.id,
 								slug: product.slug,
 								name: product.name,
-								price: product.price ?? 0,
+								price: price,
 								quantity: quantity,
-								image: product.main_image,
+								image: product.image_url || product.main_image,
 								storefrontId: storefrontId,
-								stock: product.stock,
+								stock: stock,
 							},
 							{ openDrawer: false }
 						);
