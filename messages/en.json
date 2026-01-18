@@ -322,7 +322,19 @@
 				"Orders list",
 				"Status (New / Processing / Completed)",
 				"Total revenue today"
-			]
+			],
+			"mock": {
+				"welcome": "Welcome to Tijaratk",
+				"subtitle": "Manage your store and products",
+				"totalProducts": "Total Products",
+				"storeVisits": "Store Visits",
+				"totalOrders": "Total Completed Orders",
+				"totalSales": "Total Sales",
+				"ordersOverview": "Orders Overview",
+				"quarterlyPerformance": "Quarterly Performance",
+				"completed": "Completed",
+				"cancelled": "Cancelled"
+			}
 		},
 		"WhoFor": {
 			"title": "Who Is Tijaratk For?",
