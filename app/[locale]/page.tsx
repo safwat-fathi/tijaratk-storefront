@@ -706,9 +706,9 @@ export default async function Home() {
 						>
 							{t("FinalCTA.button")}
 						</Link>
-						<span className="text-gray-400 font-medium">
+						{/* <span className="text-gray-400 font-medium">
 							{t("FinalCTA.buttonSub")}
-						</span>
+						</span> */}
 					</div>
 				</div>
 			</section>
