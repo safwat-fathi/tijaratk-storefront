@@ -92,7 +92,12 @@ export class StorefrontApiService extends HttpService {
 	 */
 	public recordVisit(
 		storeId: number,
-		payload: { userAgent?: string; referer?: string },
+		payload: {
+			userAgent?: string;
+			referer?: string;
+			source?: string;
+			utmSource?: string;
+		},
 	) {
 		return fetch(
 			`${process.env.NEXT_PUBLIC_API_BASE_URL}/public/stores/${storeId}/visit`,

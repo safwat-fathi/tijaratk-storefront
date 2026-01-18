@@ -167,7 +167,12 @@ export async function getStorefrontSeoMetadata(
 
 export async function recordStoreVisit(
 	storeId: number,
-	visitorInfo: { userAgent?: string; referer?: string },
+	visitorInfo: {
+		userAgent?: string;
+		referer?: string;
+		source?: string;
+		utmSource?: string;
+	},
 ) {
 	try {
 		await storefrontApiService.recordVisit(storeId, visitorInfo);
