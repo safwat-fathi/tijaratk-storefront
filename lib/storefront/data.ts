@@ -166,11 +166,11 @@ export async function getStorefrontSeoMetadata(
 }
 
 export async function recordStoreVisit(
-	slug: string,
-	visitorInfo: { ip?: string; userAgent?: string; referer?: string },
+	storeId: number,
+	visitorInfo: { userAgent?: string; referer?: string },
 ) {
 	try {
-		await storefrontApiService.recordVisit(slug, visitorInfo);
+		await storefrontApiService.recordVisit(storeId, visitorInfo);
 	} catch (error) {
 		console.error("Failed to record store visit", error);
 		// Fail silently as this is analytics

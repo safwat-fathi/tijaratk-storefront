@@ -4,7 +4,10 @@ import {
 	IParams,
 	TMethod,
 } from "@/types/services/base";
-import { getCookieAction } from "@/app/actions/cookie-store";
+import {
+	getCookieAction,
+	getCookiesStringAction,
+} from "@/app/actions/cookie-store";
 
 import { STORAGE_KEYS } from "@/constants";
 import { createParams } from "@/lib/utils/qs";
@@ -43,9 +46,23 @@ export default class HttpService<T = unknown> extends HttpServiceAbstract<T> {
 		// Always get fresh token from cookies
 		this._token = await getCookieAction(STORAGE_KEYS.ACCESS_TOKEN);
 
-		return this._token
-			? { Authorization: `Bearer ${this._token.replace(/['"]+/g, "")}` }
-			: {};
+
+
+		const headers: HeadersInit = {};
+
+		if (this._token) {
+			headers["Authorization"] = `Bearer ${this._token.replace(/['"]+/g, "")}`;
+		}
+
+		// Forward all cookies in SSR
+		if (typeof window === "undefined") {
+			const cookies = await getCookiesStringAction();
+			if (cookies) {
+				headers["Cookie"] = cookies;
+			}
+		}
+
+		return headers;
 	}
 
 	private async _request<R = T>(
@@ -73,7 +90,6 @@ export default class HttpService<T = unknown> extends HttpServiceAbstract<T> {
 
 			// Create a new AbortSignal for each request
 			const requestOptions: RequestInit = {
-				// credentials: "include", // إزالة credentials لتجنب مشكلة CORS
 				...options,
 				signal: options.signal || AbortSignal.timeout(this._timeout),
 				method,
@@ -82,6 +98,7 @@ export default class HttpService<T = unknown> extends HttpServiceAbstract<T> {
 					...authHeaders,
 					...options.headers,
 				},
+				credentials: "include",
 			};
 
 			const response = await fetch(fullURL, requestOptions);

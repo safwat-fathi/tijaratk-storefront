@@ -6,19 +6,19 @@
 
 ### 🇬🇧 Headline (Primary)
 
-**Turn your products into orders — online, in-store, and on WhatsApp.**
+**Your online store in seconds — zero commission.**
 
-### 🇬🇧 Sub-Headline (Option A – confirmed)
+### 🇬🇧 Sub-Headline (Confirmed)
 
-**A no-commission platform that syncs your shelf, catalog, and WhatsApp orders in minutes.**
+**Sell from one link. Manage all orders and analytics from your own dashboard.**
 
-### 🇬🇧 Supporting Line (small text)
+### 🇬🇧 Supporting Line
 
-Perfect for groceries, pharmacies, mini-markets, and growing online stores.
+Built for Instagram sellers, Facebook pages, and online-first businesses.
 
 ### 🇬🇧 Primary CTA
 
-**Start Free — No Commission**
+**Create Your Store — Free**
 
 ### 🇬🇧 Secondary CTA
 
@@ -28,19 +28,19 @@ Perfect for groceries, pharmacies, mini-markets, and growing online stores.
 
 ### 🇸🇦 العنوان الرئيسي
 
-**حوّل منتجاتك إلى طلبات — أونلاين، داخل المحل، وعلى واتساب.**
+**متجرك الأونلاين في ثواني — بدون عمولة**
 
 ### 🇸🇦 العنوان الفرعي
 
-**منصة بدون عمولة توحّد الرفوف، الكتالوج، وطلبات واتساب خلال دقائق.**
+**بيع من لينك واحد وادير كل الطلبات والإحصائيات من داشبوردك.**
 
 ### 🇸🇦 سطر توضيحي
 
-مناسبة للبقالات، الصيدليات، الميني ماركت، والمتاجر الأونلاين الناشئة.
+مناسب لبائعي إنستجرام، صفحات فيسبوك، والمتاجر الأونلاين.
 
 ### 🇸🇦 زر أساسي
 
-**ابدأ مجانًا — بدون عمولة**
+**اعمل متجرك مجانًا**
 
 ### 🇸🇦 زر ثانوي
 
@@ -53,174 +53,166 @@ Perfect for groceries, pharmacies, mini-markets, and growing online stores.
 * Layout: **Two-column**
 
   * Left: Copy + CTAs
-  * Right: Visual (phone mockup)
-* Visual suggestion:
+  * Right: Split visual
 
-  * Phone screen showing:
+    * Mobile store preview
+    * Seller dashboard (orders + analytics)
+* Visual badges:
 
-    * Barcode scan
-    * Product list
-    * WhatsApp order preview
-* Tone:
-
-  * Clean
-  * Practical
-  * Trust-building
+  * **Ready in seconds**
+  * **0% Commission**
 * Avoid:
 
-  * Stock “corporate” visuals
-  * AI / charts / dashboards imagery
+  * WhatsApp message bubbles
+  * Physical store visuals
 
 ---
 
-## 🧩 SECTION 2 — The Problem (Pain-Driven)
+## 🧩 SECTION 2 — The Problem (Online Sellers)
 
 ### 🇬🇧 Title
 
-**Selling through WhatsApp shouldn’t be this hard.**
+**Selling online shouldn’t mean losing control.**
 
 ### 🇬🇧 Content
 
-If you sell products today, you probably deal with:
+Online sellers today struggle with:
 
-* ❌ Messy WhatsApp messages and lost orders
-* ❌ Products sold in-store but still “available” online
-* ❌ Manual totals, delivery fees, and constant back-and-forth
-* ❌ No clear record of what was ordered and when
+* ❌ Orders scattered across DMs and chats
+* ❌ No central place to track orders
+* ❌ No clear sales or product performance
+* ❌ Customers asking “did my order go through?”
 
-**This chaos costs you time, trust, and sales.**
+**This hurts trust, follow-up, and growth.**
 
 ---
 
 ### 🇸🇦 العنوان
 
-**البيع على واتساب مش المفروض يكون معقّد.**
+**البيع الأونلاين مش المفروض يكون فوضوي.**
 
 ### 🇸🇦 المحتوى
 
-لو بتبيع منتجات دلوقتي، غالبًا بتعاني من:
+البائع الأونلاين بيعاني من:
 
-* ❌ رسايل واتساب ملخبطة وطلبات بتضيع
-* ❌ منتجات اتباعت في المحل ولسه ظاهرة أونلاين
-* ❌ حسابات يدوية للإجمالي والتوصيل
-* ❌ مفيش سجل واضح للطلبات
+* ❌ طلبات متفرقة بين الرسائل
+* ❌ مفيش مكان واحد لإدارة الطلبات
+* ❌ مفيش أرقام واضحة للمبيعات
+* ❌ زباين مش عارفة حالة الطلب
 
-**النتيجة؟ وقت ضايع وثقة أقل ومبيعات أقل.**
+**وده بيأثر على الثقة والتوسع.**
 
 ---
 
 ## 🎨 UI/UX Guide — Problem Section
 
-* Use:
-
-  * Icons ❌
-  * Short lines
-* Background:
-
-  * Light gray or off-white
-* Goal:
-
-  * Make user say: *“ده أنا”*
+* Icons ❌
+* Short lines
+* Goal: **“أنا بعاني من ده فعلًا”**
 
 ---
 
-## ⚙️ SECTION 3 — The Solution (What is Tijaratk)
+## ⚙️ SECTION 3 — The Solution
 
 ### 🇬🇧 Title
 
-**Tijaratk brings order to how you sell.**
+**Tijaratk gives you a real selling system.**
 
 ### 🇬🇧 Content
 
-Tijaratk helps you manage products and orders across:
+With Tijaratk, you get:
 
-* 🏪 Your physical shop
-* 🌐 Your online catalog
-* 💬 WhatsApp conversations
+* 🌐 An online store customers can order from
+* 📦 All orders inside your dashboard
+* 📊 Built-in analytics for sales & products
 
-All without commissions, complex systems, or changing how you already work.
+No commission.
+No chaos.
+No missing orders.
 
 ---
 
 ### 🇸🇦 العنوان
 
-**تجارتك بتنظّم طريقة بيعك.**
+**تجارتك بتديك نظام بيع حقيقي.**
 
 ### 🇸🇦 المحتوى
 
-تجارتك بتساعدك تدير منتجاتك وطلباتك بين:
+مع تجارتك هتحصل على:
 
-* 🏪 المحل
-* 🌐 الكتالوج الأونلاين
-* 💬 واتساب
+* 🌐 متجر أونلاين للطلبات
+* 📦 كل الطلبات في داشبورد واحد
+* 📊 إحصائيات واضحة للمبيعات والمنتجات
 
-من غير عمولات، ولا أنظمة معقّدة، ولا تغيير لطريقتك الحالية.
-
----
-
-## 🎯 SECTION 4 — Key Features (Value Blocks)
-
-### 🇬🇧 Feature 1 — Scan Products Once
-
-**Scan barcodes with your phone.**
-Product name and image appear instantly.
-
-> Your store can be ready in under 15 minutes.
+من غير عمولة
+من غير لخبطة
+من غير طلبات ضايعة
 
 ---
 
-### 🇸🇦 ميزة 1 — امسح المنتج مرة واحدة
+## 🎯 SECTION 4 — Key Features (Dashboard-First)
 
-**امسح الباركود بالموبايل.**
-المنتج يظهر باسمه وصورته فورًا.
+### 🇬🇧 Feature 1 — Online Store in Seconds
 
-> تقدر تجهز محلك خلال 15 دقيقة.
+**Add products and your store is live instantly.**
 
----
-
-### 🇬🇧 Feature 2 — Shelf & Inventory Sync
-
-**Sell an item in-store? One tap removes it online.**
-
-No more out-of-stock surprises.
+One link to share everywhere.
 
 ---
 
-### 🇸🇦 ميزة 2 — تزامن الرف والمخزون
+### 🇸🇦 ميزة 1 — متجر جاهز فورًا
 
-**المنتج اتباع في المحل؟ ضغطة واحدة وتختفي أونلاين.**
+**ضيف منتجاتك ومتجرك يشتغل في نفس اللحظة.**
 
-مفيش إحراج “خلصان”.
-
----
-
-### 🇬🇧 Feature 3 — Clean WhatsApp Orders
-
-Customers order from your catalog.
-You receive a **clear, structured WhatsApp message**.
+لينك واحد للبيع في كل مكان.
 
 ---
 
-### 🇸🇦 ميزة 3 — طلبات واتساب منظمة
+### 🇬🇧 Feature 2 — Centralized Orders Dashboard
 
-العميل يطلب من الكتالوج.
-يوصلك طلب مرتب وواضح على واتساب.
+**Every order appears clearly in your dashboard.**
 
----
-
-### 🇬🇧 Feature 4 — Local Delivery Pricing
-
-Charge delivery fees by neighborhood or zone.
-
-Just like real life.
+Status, customer info, totals — all organized.
 
 ---
 
-### 🇸🇦 ميزة 4 — تسعير توصيل حسب المنطقة
+### 🇸🇦 ميزة 2 — داشبورد طلبات موحّد
 
-حدّد سعر التوصيل لكل منطقة.
+**كل الطلبات بتظهر بوضوح في داشبوردك.**
 
-زي الواقع بالظبط.
+الحالة، البيانات، والإجمالي في مكان واحد.
+
+---
+
+### 🇬🇧 Feature 3 — Built-in Analytics
+
+**Know what sells and what doesn’t.**
+
+Daily sales, top products, order trends.
+
+---
+
+### 🇸🇦 ميزة 3 — إحصائيات مدمجة
+
+**اعرف إيه اللي بيبيع وإيه لأ.**
+
+مبيعات يومية، أفضل المنتجات، واتجاهات الطلبات.
+
+---
+
+### 🇬🇧 Feature 4 — Zero Commission
+
+**You keep 100% of your revenue.**
+
+Always.
+
+---
+
+### 🇸🇦 ميزة 4 — بدون عمولة
+
+**فلوسك كاملة ليك.**
+
+دايمًا.
 
 ---
 
@@ -228,82 +220,80 @@ Just like real life.
 
 * Layout:
 
-  * 2×2 grid (desktop)
-  * Vertical stack (mobile)
-* Each block:
+  * Dashboard screenshots > text
+* Highlight visually:
 
-  * Icon
-  * Short title
-  * One strong sentence
-* Avoid paragraphs
+  * Orders table
+  * Revenue numbers
+  * Simple charts
+* Avoid:
+
+  * Complex BI visuals
+  * Technical terms
 
 ---
 
-## 🧾 SECTION 5 — WhatsApp Order Preview (Trust Builder)
+## 🧾 SECTION 5 — Dashboard Preview (Trust Builder)
 
 ### 🇬🇧 Title
 
-**What the merchant receives**
+**This is your orders dashboard**
 
-(Show formatted WhatsApp message preview)
+* Orders list
+* Status (New / Processing / Completed)
+* Total revenue today
 
 ### 🇸🇦 العنوان
 
-**شكل الطلب اللي بيوصلك**
+**ده شكل داشبورد الطلبات بتاعك**
 
 ---
 
-## 🎨 UI/UX Guide — Order Preview
+## 🎨 UI/UX Guide — Dashboard Preview
 
-* Phone mockup (dark mode)
+* Desktop + tablet view
 * Real Arabic product names
 * Emphasize:
 
-  * Totals
-  * Location
-  * “Tap to confirm”
+  * Order clarity
+  * Revenue visibility
+  * Simplicity
 
 ---
 
-## 👥 SECTION 6 — Who Is Tijaratk For?
+## 👥 SECTION 6 — Who Is Tijaratk For? (Final)
 
 ### 🇬🇧
 
-* 🏪 Local shops & groceries
-* 💊 Pharmacies
-* 🧺 Mini-markets
-* 🛒 Online sellers using WhatsApp
-
-If you sell products and talk to customers on WhatsApp — Tijaratk is for you.
+* 📸 Instagram sellers
+* 📘 Facebook page sellers
+* 🛒 Online-first stores
+* 🚀 Sellers who want control & insights
 
 ---
 
 ### 🇸🇦
 
-* 🏪 المحلات والبقالات
-* 💊 الصيدليات
-* 🧺 الميني ماركت
-* 🛒 البائعين الأونلاين على واتساب
-
-لو بتبيع منتجات وبتكلم عملاءك على واتساب — تجارتك معمولة ليك.
+* 📸 بائعي إنستجرام
+* 📘 صفحات فيسبوك
+* 🛒 المتاجر الأونلاين
+* 🚀 اللي عايزين تحكم وإحصائيات
 
 ---
 
-## 💰 SECTION 7 — Pricing Teaser (No Numbers)
+## 💰 SECTION 7 — Pricing
 
 ### 🇬🇧
 
-**Free to start. No commission.**
+**Start free. Zero commission.**
 
-Upgrade only when your business grows.
-
----
+Upgrade only when you grow.
 
 ### 🇸🇦
 
 **ابدأ مجانًا. بدون عمولة.**
 
-ادفع بس لما شغلك يكبر.
+ادفع لما شغلك يكبر.
 
 ---
 
@@ -311,23 +301,21 @@ Upgrade only when your business grows.
 
 ### 🇬🇧
 
-**Start your digital catalog today.**
-No commission. No complexity.
+**Create your online store today.**
+Manage orders. Track sales. No commission.
 
 ### 🇸🇦
 
-**ابدأ كتالوجك الرقمي النهارده.**
-من غير عمولة. من غير تعقيد.
+**اعمل متجرك الأونلاين النهارده.**
+ادير طلباتك. تابع مبيعاتك. بدون عمولة.
 
 ---
 
-## 🧠 Final UX Principles (for the whole page)
+## 🧠 Final UX Principles (Updated)
 
-* One idea per section
-* Real merchant language
-* Mobile-first
-* No buzzwords
-* Trust > features
-
----
+* Store → Orders → Analytics (clear flow)
+* Dashboard is the hero
+* WhatsApp = entry, not system
+* Numbers build trust
+* Simplicity > features
 

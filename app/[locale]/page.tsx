@@ -2,16 +2,18 @@ import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import {
-	X,
-	Store,
-	RefreshCw,
-	MessageCircle,
+	Truck,
 	MapPin,
 	ArrowRight,
 	Play,
-	ShoppingBag,
-	Truck,
-	Barcode,
+	Store,
+	LayoutDashboard,
+	BarChart3,
+	CreditCard,
+	Percent,
+	Globe,
+	Smartphone,
+	Package,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -46,185 +48,197 @@ export default async function Home() {
 			</nav>
 
 			{/* Hero Section */}
-			<section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-8 max-w-7xl mx-auto">
+			<section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-8 max-w-7xl mx-auto overflow-visible">
 				{/* Background Blobs */}
-				<div className="absolute top-20 left-0 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-				<div className="absolute top-20 right-0 w-72 h-72 bg-cyan-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-				<div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+				<div className="absolute top-20 left-0 w-72 h-72 bg-violet-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+				<div className="absolute top-20 right-0 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
 
-				<div className="relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-					<div className="flex flex-col items-center lg:items-start text-center lg:text-start space-y-6 animate-fade-up">
-						<span className="inline-block px-3 py-1 rounded-full bg-violet-50 text-violet-700 text-sm font-semibold mb-2 border border-violet-100">
-							{t("Hero.subHeadline")}
-						</span>
-						<h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.15]">
-							{t("Hero.headline")
-								.split("—")
-								.map((part, i) =>
-									i === 0 ? (
-										part
-									) : (
-										<span key={i} className="text-gradient block mt-2">
-											{part}
-										</span>
-									)
-								)}
+				<div className="relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+					{/* Left Column: Copy + CTAs */}
+					<div className="flex flex-col items-center lg:items-start text-center lg:text-start space-y-8 animate-fade-up">
+						{/* Badges */}
+						<div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+							<span className="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-700 text-sm font-semibold border border-green-100">
+								✨ {t("Hero.badgeReady")}
+							</span>
+							<span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-semibold border border-blue-100">
+								💎 {t("Hero.badgeCommission")}
+							</span>
+						</div>
+
+						<h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1]">
+							{t("Hero.headline")}
 						</h1>
-						<p className="text-lg text-gray-600 max-w-xl leading-relaxed">
-							{t("Hero.supportingLine")}
-						</p>
-						<div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pt-4">
+
+						<div className="space-y-4">
+							<p className="text-xl sm:text-2xl font-medium text-gray-900 leading-relaxed">
+								{t("Hero.subHeadline")}
+							</p>
+							<p className="text-lg text-gray-500 max-w-lg mx-auto lg:mx-0">
+								{t("Hero.supportingLine")}
+							</p>
+						</div>
+
+						<div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pt-2">
 							<Link
 								href="/signup"
-								className="inline-flex items-center justify-center gap-2 rounded-full bg-black px-8 py-3.5 text-base font-bold text-white shadow-xl shadow-gray-200 transition-all hover:bg-gray-800 hover:shadow-2xl hover:-translate-y-1"
+								className="inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-8 py-4 text-base font-bold text-white shadow-xl shadow-gray-200 transition-all hover:bg-black hover:scale-105 active:scale-95"
 							>
 								{t("Hero.primaryCTA")}
 								<ArrowRight className="w-5 h-5 rtl:rotate-180" />
 							</Link>
 							<a
-								href="#video-showcase"
-								className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 text-base font-bold text-gray-900 shadow-lg border border-gray-200 transition-all hover:bg-gray-50 hover:border-gray-300"
+								href="#how-it-works"
+								className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-gray-900 shadow-md border border-gray-100 transition-all hover:bg-gray-50 hover:border-gray-200"
 							>
-								<Play className="w-5 h-5 fill-current" />
 								{t("Hero.secondaryCTA")}
 							</a>
 						</div>
 					</div>
 
-					{/* Hero Visual - Mockup */}
+					{/* Right Column: Split Visual (Mobile Store + Dashboard) */}
 					<div
-						className="relative mx-auto lg:ml-auto w-full max-w-md animate-fade-up"
+						className="relative mx-auto w-full max-w-lg lg:max-w-none animate-fade-up"
 						style={{ animationDelay: "0.2s" }}
 					>
-						<div className="relative rounded-[2.5rem] border-[8px] border-gray-900 bg-gray-900 shadow-2xl overflow-hidden aspect-[9/19]">
-							<div className="absolute top-0 w-full h-8 bg-gray-900 z-20 rounded-t-[2rem] flex justify-center">
-								<div className="w-32 h-6 bg-black rounded-b-xl"></div>
-							</div>
-							<div className="w-full h-full bg-gray-50 pt-10 pb-4 px-4 overflow-hidden relative">
-								{/* Mockup Content */}
-								<div className="flex justify-between items-center mb-6">
-									<div className="h-8 w-8 rounded-full bg-gray-200"></div>
-									<div className="h-4 w-24 bg-gray-200 rounded"></div>
-								</div>
-								<div className="space-y-4">
-									<div className="p-4 rounded-2xl bg-white shadow-sm border border-gray-100">
-										<div className="flex gap-4">
-											<div className="w-16 h-16 rounded-xl bg-gray-100 flex items-center justify-center">
-												<Barcode className="w-8 h-8 text-gray-400 opactiy-50" />
-											</div>
-											<div className="space-y-2 flex-1">
-												<div className="h-4 w-3/4 bg-gray-100 rounded"></div>
-												<div className="h-3 w-1/2 bg-gray-100 rounded"></div>
-											</div>
-										</div>
-									</div>
-									<div className="p-4 rounded-2xl bg-violet-50 border border-violet-100">
-										<div className="flex items-center gap-3 mb-2">
-											<MessageCircle className="w-5 h-5 text-violet-600" />
-											<span className="text-xs font-bold text-violet-800 uppercase tracking-wider">
-												New Order
-											</span>
-										</div>
-										<div className="text-sm font-medium text-gray-800">
-											2x iPhone 15 Pro Max
-										</div>
-										<div className="text-xs text-gray-500 mt-1">
-											Via WhatsApp • Just now
-										</div>
-									</div>
-									<div className="h-32 rounded-2xl bg-gray-100 animate-pulse"></div>
-								</div>
+						<div className="relative w-full aspect-square lg:aspect-[4/3]">
+							{/* Decoration */}
+							<div className="absolute inset-0 bg-linear-to-tr from-violet-100 to-indigo-50 rounded-[3rem] -rotate-6 transform scale-95 opacity-50"></div>
 
-								{/* Floating Elements */}
-								<div
-									className="absolute bottom-12 -left-4 bg-white p-3 rounded-xl shadow-lg border border-gray-100 flex items-center gap-3 animate-bounce"
-									style={{ animationDuration: "3s" }}
-								>
-									<div className="bg-green-100 p-2 rounded-lg text-green-600">
-										<ShoppingBag className="w-5 h-5" />
+							{/* Mobile Store Preview (Phone) */}
+							<div className="absolute bottom-0 left-0 w-[45%] z-20 transform hover:-translate-y-2 transition-transform duration-500">
+								<div className="relative rounded-4xl bg-gray-900 p-2 shadow-2xl">
+									<div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 bg-gray-900 rounded-b-xl z-20"></div>
+									<div className="rounded-[1.5rem] bg-white overflow-hidden aspect-[9/19] relative border border-gray-800">
+										{/* Mock Store Content */}
+										<div className="h-full bg-gray-50 flex flex-col">
+											<div className="h-32 bg-gray-200 animate-pulse"></div>
+											<div className="p-3 grid grid-cols-2 gap-2">
+												{[1, 2, 3, 4].map(i => (
+													<div
+														key={i}
+														className="aspect-[3/4] rounded-lg bg-gray-200 animate-pulse"
+													></div>
+												))}
+											</div>
+										</div>
 									</div>
-									<div>
-										<div className="text-xs text-gray-400">Total Sales</div>
-										<div className="font-bold text-gray-900">$1,240.00</div>
+								</div>
+							</div>
+
+							{/* Seller Dashboard Preview (Desktop/Tablet Card) */}
+							<div className="absolute top-8 right-0 w-[75%] z-10 transform hover:translate-y-2 transition-transform duration-500">
+								<div className="rounded-2xl bg-white shadow-2xl border border-gray-100 p-4 aspect-[4/3] flex flex-col">
+									<div className="flex gap-2 mb-4 border-b border-gray-50 pb-2">
+										<div className="w-3 h-3 rounded-full bg-red-400"></div>
+										<div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+										<div className="w-3 h-3 rounded-full bg-green-400"></div>
+									</div>
+									<div className="flex-1 space-y-3">
+										<div className="flex gap-4">
+											<div className="w-1/3 h-20 rounded-xl bg-violet-50 p-3">
+												<div className="w-6 h-6 rounded bg-violet-200 mb-2"></div>
+												<div className="w-16 h-3 rounded bg-gray-200"></div>
+											</div>
+											<div className="w-1/3 h-20 rounded-xl bg-blue-50 p-3">
+												<div className="w-6 h-6 rounded bg-blue-200 mb-2"></div>
+												<div className="w-16 h-3 rounded bg-gray-200"></div>
+											</div>
+											<div className="w-1/3 h-20 rounded-xl bg-green-50 p-3">
+												<div className="w-6 h-6 rounded bg-green-200 mb-2"></div>
+												<div className="w-16 h-3 rounded bg-gray-200"></div>
+											</div>
+										</div>
+										<div className="flex-1 rounded-xl bg-gray-50 border border-gray-100 p-3 space-y-2">
+											<div className="w-full h-8 rounded bg-white shadow-sm"></div>
+											<div className="w-full h-8 rounded bg-white shadow-sm"></div>
+											<div className="w-full h-8 rounded bg-white shadow-sm"></div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						{/* Glow */}
-						<div className="absolute -inset-4 bg-gradient-to-tr from-violet-500 to-indigo-500 blur-2xl opacity-20 -z-10 rounded-[3rem]"></div>
 					</div>
 				</div>
 			</section>
 
 			{/* Problem Section (Pain Points) */}
-			<section className="py-20 bg-gray-50/80">
-				<div className="max-w-4xl mx-auto px-4 sm:px-8">
-					<div className="text-center mb-16">
-						<h2 className="text-3xl font-bold text-gray-900 mb-4">
-							{t("Problem.title")}
-						</h2>
-						<p className="text-lg text-gray-600">{t("Problem.conclusion")}</p>
-					</div>
+			<section className="py-24 bg-gray-50/50">
+				<div className="max-w-3xl mx-auto px-4 sm:px-8 text-center">
+					<h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 leading-tight">
+						{t("Problem.title")}
+					</h2>
 
-					<div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-						<ul className="space-y-6">
-							{Object.entries(t.raw("Problem.list")).map(([key, value]) => (
+					<div className="bg-white rounded-4xl p-8 md:p-12 shadow-xl shadow-gray-100/50 border border-gray-100">
+						<ul className="space-y-4 text-left inline-block mx-auto">
+							{t.raw("Problem.list").map((item: string, index: number) => (
 								<li
-									key={key}
-									className="flex items-start gap-4 p-4 rounded-xl hover:bg-red-50/50 transition-colors group"
+									key={index}
+									className="flex items-center gap-4 text-lg md:text-xl text-gray-700 font-medium"
 								>
-									<div className="flex-shrink-0 mt-1 w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center group-hover:bg-red-200 transition-colors">
-										<X className="w-5 h-5" />
-									</div>
-									<span className="text-lg text-gray-700 font-medium pt-1">
-										{value as string}
+									<span className="flex-shrink-0 w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-sm font-bold">
+										✕
 									</span>
+									{item}
 								</li>
 							))}
 						</ul>
+						<p className="text-xl text-gray-900 font-bold mt-10 pt-8 border-t border-gray-50">
+							{t("Problem.conclusion")}
+						</p>
 					</div>
 				</div>
 			</section>
 
 			{/* Solution Section */}
-			<section className="py-20 bg-white">
+			<section className="py-24 bg-white">
 				<div className="max-w-7xl mx-auto px-4 sm:px-8">
-					<div className="text-center mb-16 max-w-3xl mx-auto">
-						<span className="text-violet-600 font-bold tracking-wider uppercase text-sm mb-2 block">
+					<div className="text-center mb-16 max-w-3xl mx-auto animate-fade-up">
+						<span className="text-violet-600 font-bold tracking-wider uppercase text-sm mb-4 block">
 							{t("Solution.label")}
 						</span>
-						<h2 className="text-4xl font-bold text-gray-900 mb-6">
+						<h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">
 							{t("Solution.title")}
 						</h2>
-						<p className="text-xl text-gray-600 leading-relaxed">
+						<p className="text-xl text-gray-600 leading-relaxed font-medium">
 							{t("Solution.prefix")}
 						</p>
 					</div>
 
-					<div className="grid md:grid-cols-3 gap-8 mb-12">
+					<div className="grid md:grid-cols-3 gap-8 mb-16">
 						{[
-							{ key: "shop", icon: Store, color: "bg-blue-100 text-blue-600" },
 							{
-								key: "catalog",
-								icon: ShoppingBag,
-								color: "bg-violet-100 text-violet-600",
+								key: "shop",
+								icon: Globe,
+								bg: "bg-blue-50",
+								text: "text-blue-600",
+								border: "border-blue-100",
 							},
 							{
-								key: "whatsapp",
-								icon: MessageCircle,
-								color: "bg-green-100 text-green-600",
+								key: "dashboard",
+								icon: LayoutDashboard,
+								bg: "bg-violet-50",
+								text: "text-violet-600",
+								border: "border-violet-100",
 							},
-						].map(item => (
+							{
+								key: "analytics",
+								icon: BarChart3,
+								bg: "bg-emerald-50",
+								text: "text-emerald-600",
+								border: "border-emerald-100",
+							},
+						].map((item, i) => (
 							<div
 								key={item.key}
-								className="flex flex-col items-center text-center p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1"
+								className={`flex flex-col items-center text-center p-10 rounded-4xl ${item.bg} border ${item.border} hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group`}
 							>
 								<div
-									className={`w-16 h-16 rounded-2xl ${item.color} flex items-center justify-center mb-6`}
+									className={`w-20 h-20 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
 								>
-									<item.icon className="w-8 h-8" />
+									<item.icon className={`w-10 h-10 ${item.text}`} />
 								</div>
-								<h3 className="text-xl font-bold text-gray-900">
+								<h3 className="text-2xl font-bold text-gray-900 leading-snug">
 									{t(`Solution.list.${item.key}`)}
 								</h3>
 							</div>
@@ -232,181 +246,305 @@ export default async function Home() {
 					</div>
 
 					<div className="text-center">
-						<p className="text-lg font-medium text-gray-500 italic">
-							&quot;{t("Solution.conclusion")}&quot;
+						<p className="text-2xl font-bold text-gray-900 bg-gray-50 inline-block px-8 py-4 rounded-full border border-gray-100 shadow-sm">
+							{t("Solution.conclusion")}
 						</p>
 					</div>
 				</div>
 			</section>
 
-			{/* Features Grid */}
-			<section className="py-20 bg-gray-900 text-white">
+			{/* Features Grid - Dashboard First */}
+			<section className="py-24 bg-gray-900 text-white overflow-hidden">
 				<div className="max-w-7xl mx-auto px-4 sm:px-8">
-					<div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-						{/* Feature 1: Scan */}
-						<div className="glass-panel bg-white/10 border-white/10 p-8 rounded-3xl">
-							<div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-6">
-								<Barcode className="w-6 h-6 text-white" />
+					<div className="grid gap-24">
+						{/* Feature 1: Online Store */}
+						<div className="grid lg:grid-cols-2 gap-12 items-center">
+							<div className="order-2 lg:order-1 relative">
+								<div className="absolute inset-0 bg-linear-to-r from-violet-500/30 to-blue-500/30 blur-3xl rounded-full"></div>
+								<div className="relative glass-panel bg-white/5 border-white/10 p-6 rounded-4xl backdrop-blur-sm">
+									{/* Abstract Store UI */}
+									<div className="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden aspect-video relative group">
+										<div className="absolute inset-0 flex items-center justify-center">
+											<div className="text-center space-y-4">
+												<div className="w-16 h-16 bg-violet-600 rounded-2xl mx-auto flex items-center justify-center shadow-lg shadow-violet-900/50 group-hover:scale-110 transition-transform">
+													<Store className="w-8 h-8 text-white" />
+												</div>
+												<div className="px-4 py-2 bg-gray-800 rounded-lg text-sm font-medium text-gray-300 border border-gray-700">
+													tijaratk.com/your-store
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<h3 className="text-2xl font-bold mb-3">
-								{t("Features.scan.title")}
-							</h3>
-							<p className="text-gray-300 mb-6">
-								{t("Features.scan.description")}
-							</p>
-							<div className="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-medium">
-								{t("Features.scan.quote")}
+							<div className="order-1 lg:order-2 space-y-6">
+								<div className="w-16 h-16 rounded-2xl bg-violet-500/20 flex items-center justify-center border border-violet-500/30">
+									<Smartphone className="w-8 h-8 text-violet-400" />
+								</div>
+								<h3 className="text-4xl font-bold">
+									{t("Features.store.title")}
+								</h3>
+								<p className="text-xl text-gray-400 leading-relaxed">
+									{t("Features.store.description")}
+								</p>
 							</div>
 						</div>
 
-						{/* Feature 2: Sync */}
-						<div className="glass-panel bg-white/10 border-white/10 p-8 rounded-3xl">
-							<div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-6">
-								<RefreshCw className="w-6 h-6 text-white" />
+						{/* Feature 2: Dashboard */}
+						<div className="grid lg:grid-cols-2 gap-12 items-center">
+							<div className="space-y-6">
+								<div className="w-16 h-16 rounded-2xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+									<LayoutDashboard className="w-8 h-8 text-blue-400" />
+								</div>
+								<h3 className="text-4xl font-bold">
+									{t("Features.dashboard.title")}
+								</h3>
+								<p className="text-xl text-gray-400 leading-relaxed">
+									{t("Features.dashboard.description")}
+								</p>
 							</div>
-							<h3 className="text-2xl font-bold mb-3">
-								{t("Features.sync.title")}
-							</h3>
-							<p className="text-gray-300">{t("Features.sync.description")}</p>
+							<div className="relative">
+								<div className="absolute inset-0 bg-linear-to-l from-blue-500/30 to-cyan-500/30 blur-3xl rounded-full"></div>
+								<div className="relative glass-panel bg-white/5 border-white/10 p-6 rounded-4xl backdrop-blur-sm">
+									{/* Abstract Dashboard UI */}
+									<div className="bg-gray-900 rounded-xl border border-gray-800 p-6 space-y-4">
+										<div className="flex gap-4 border-b border-gray-800 pb-4">
+											<div className="w-1/3 h-20 bg-gray-800 rounded-lg animate-pulse"></div>
+											<div className="w-1/3 h-20 bg-gray-800 rounded-lg animate-pulse delay-75"></div>
+											<div className="w-1/3 h-20 bg-gray-800 rounded-lg animate-pulse delay-150"></div>
+										</div>
+										<div className="space-y-3">
+											{[1, 2, 3].map(i => (
+												<div
+													key={i}
+													className="h-12 bg-gray-800/50 rounded-lg w-full"
+												></div>
+											))}
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 
-						{/* Feature 3: WhatsApp */}
-						<div className="glass-panel bg-white/10 border-white/10 p-8 rounded-3xl">
-							<div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-6">
-								<MessageCircle className="w-6 h-6 text-white" />
+						{/* Feature 3: Analytics */}
+						<div className="grid lg:grid-cols-2 gap-12 items-center">
+							<div className="order-2 lg:order-1 relative">
+								<div className="absolute inset-0 bg-linear-to-r from-emerald-500/30 to-teal-500/30 blur-3xl rounded-full"></div>
+								<div className="relative glass-panel bg-white/5 border-white/10 p-6 rounded-4xl backdrop-blur-sm">
+									{/* Abstract Chart UI */}
+									<div className="bg-gray-900 rounded-xl border border-gray-800 p-6 flex items-end justify-between gap-4 h-64">
+										{[40, 70, 45, 90, 60, 80, 95].map((h, i) => (
+											<div
+												key={i}
+												className="w-full bg-emerald-500/80 rounded-t-lg hover:bg-emerald-400 transition-colors"
+												style={{ height: `${h}%` }}
+											></div>
+										))}
+									</div>
+								</div>
 							</div>
-							<h3 className="text-2xl font-bold mb-3">
-								{t("Features.whatsapp.title")}
-							</h3>
-							<p className="text-gray-300">
-								{t("Features.whatsapp.description")}
-							</p>
+							<div className="order-1 lg:order-2 space-y-6">
+								<div className="w-16 h-16 rounded-2xl bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
+									<BarChart3 className="w-8 h-8 text-emerald-400" />
+								</div>
+								<h3 className="text-4xl font-bold">
+									{t("Features.analytics.title")}
+								</h3>
+								<p className="text-xl text-gray-400 leading-relaxed">
+									{t("Features.analytics.description")}
+								</p>
+							</div>
 						</div>
 
-						{/* Feature 4: Delivery */}
-						<div className="glass-panel bg-white/10 border-white/10 p-8 rounded-3xl">
-							<div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-6">
-								<Truck className="w-6 h-6 text-white" />
+						{/* Feature 4: Zero Commission */}
+						<div className="bg-linear-to-br from-violet-600 to-indigo-600 rounded-4xl p-12 md:p-20 text-center relative overflow-hidden">
+							<div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+							<div className="relative z-10 max-w-3xl mx-auto space-y-8">
+								<div className="flex justify-center">
+									<div className="bg-white/20 p-4 rounded-full backdrop-blur-md">
+										<Percent className="w-12 h-12 text-white" />
+									</div>
+								</div>
+								<h3 className="text-4xl md:text-6xl font-black tracking-tight">
+									{t("Features.commission.title")}
+								</h3>
+								<p className="text-2xl md:text-3xl text-violet-100 font-medium">
+									{t("Features.commission.description")}
+								</p>
 							</div>
-							<h3 className="text-2xl font-bold mb-3">
-								{t("Features.delivery.title")}
-							</h3>
-							<p className="text-gray-300">
-								{t("Features.delivery.description")}
-							</p>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			{/* WhatsApp Order Preview */}
-			<section className="py-20 bg-gray-50">
-				<div className="max-w-4xl mx-auto px-4 sm:px-8">
-					<div className="text-center mb-12">
-						<h2 className="text-3xl font-bold text-gray-900">
-							{t("WhatsAppPreview.title")}
-						</h2>
-					</div>
-
-					<div className="max-w-md mx-auto bg-[#efeae2] rounded-2xl shadow-xl overflow-hidden border border-gray-200">
-						<div className="bg-[#075e54] text-white p-4 flex items-center gap-3 shadow-sm">
-							<div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-								<Store className="w-5 h-5" />
-							</div>
-							<div className="font-semibold">Healthy Market</div>
-						</div>
-						<div className="p-6 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')] bg-opacity-10">
-							<div className="bg-white rounded-lg rounded-tl-none p-4 shadow-sm max-w-[85%] text-sm relative">
-								<div className="font-bold text-gray-900 mb-2 text-md">
-									📦 New Order #1023
-								</div>
-								<div className="space-y-2 mb-4 text-gray-700">
-									<div className="flex justify-between border-b border-gray-100 pb-1">
-										<span>2x Organic Milk</span>
-										<span className="font-semibold">90 EGP</span>
-									</div>
-									<div className="flex justify-between border-b border-gray-100 pb-1">
-										<span>1x Fresh Bread</span>
-										<span className="font-semibold">15 EGP</span>
-									</div>
-								</div>
-								<div className="flex justify-between font-bold text-gray-900 text-base mb-4">
-									<span>Total</span>
-									<span>105 EGP</span>
-								</div>
-
-								<div className="bg-gray-50 p-2 rounded text-xs text-gray-500 mb-3 flex items-start gap-2">
-									<MapPin className="w-4 h-4 mt-0.5" />
-									<span>123 Zamalek St, Cairo, Egypt</span>
-								</div>
-
-								<div className="w-full bg-[#25d366] text-white text-center py-2 rounded font-bold cursor-pointer hover:bg-[#128c7e] transition-colors">
-									Tap to Confirm
-								</div>
-
-								<span className="absolute top-0 -left-2 w-0 h-0 border-t-[10px] border-t-white border-l-[10px] border-l-transparent transform rotate-90"></span>
-							</div>
-							<div className="text-xs text-gray-400 mt-2 text-right">
-								10:42 AM
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			{/* Video Showcase */}
-			<section
-				id="video-showcase"
-				className="py-24 bg-white relative overflow-hidden"
-			>
+			{/* Dashboard Preview Section */}
+			<section className="py-24 bg-gray-50">
 				<div className="max-w-7xl mx-auto px-4 sm:px-8 text-center">
-					<span className="text-violet-600 font-bold tracking-wider uppercase text-sm mb-4 block">
-						{t("VideoShowcase.title")}
-					</span>
-					<div className="relative mx-auto max-w-5xl rounded-2xl shadow-2xl overflow-hidden glass-panel p-2">
-						<video
-							className="w-full h-auto rounded-xl bg-black"
-							controls
-							preload="metadata"
-							poster="/video-poster.png"
-						>
-							<source src="/tijaratk-demo.mp4" type="video/mp4" />
-							Your browser does not support the video tag.
-						</video>
+					<div className="max-w-3xl mx-auto mb-16">
+						<h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+							{t("DashboardPreview.title")}
+						</h2>
+						<div className="flex flex-wrap justify-center gap-4 text-gray-600">
+							{t.raw("DashboardPreview.list").map((item: string, i: number) => (
+								<span
+									key={i}
+									className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm text-sm font-medium"
+								>
+									<div className="w-2 h-2 rounded-full bg-violet-500"></div>
+									{item}
+								</span>
+							))}
+						</div>
+					</div>
+
+					{/* Dashboard Visual */}
+					<div className="relative max-w-5xl mx-auto">
+						<div className="absolute inset-0 bg-linear-to-t from-gray-50 via-transparent to-transparent z-10"></div>
+						<div className="rounded-4xl bg-white border border-gray-200 shadow-2xl overflow-hidden">
+							{/* Header */}
+							<div className="border-b border-gray-100 p-4 flex items-center justify-between bg-gray-50/50">
+								<div className="flex gap-2">
+									<div className="w-3 h-3 rounded-full bg-red-400"></div>
+									<div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+									<div className="w-3 h-3 rounded-full bg-green-400"></div>
+								</div>
+								<div className="px-4 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-gray-500">
+									admin.tijaratk.com
+								</div>
+							</div>
+
+							{/* Dashboard Content */}
+							<div className="p-6 md:p-8 text-left bg-white min-h-[500px]">
+								{/* Stats Row */}
+								<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+									<div className="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+										<p className="text-sm text-gray-500 mb-1">Total Revenue</p>
+										<p className="text-3xl font-bold text-gray-900">
+											EGP 12,450
+										</p>
+										<span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium mt-2 bg-green-50 px-2 py-1 rounded-full">
+											+12% today
+										</span>
+									</div>
+									<div className="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+										<p className="text-sm text-gray-500 mb-1">Active Orders</p>
+										<p className="text-3xl font-bold text-gray-900">24</p>
+										<span className="inline-flex items-center gap-1 text-xs text-violet-600 font-medium mt-2 bg-violet-50 px-2 py-1 rounded-full">
+											5 new
+										</span>
+									</div>
+									<div className="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+										<p className="text-sm text-gray-500 mb-1">Product Views</p>
+										<p className="text-3xl font-bold text-gray-900">1,204</p>
+									</div>
+								</div>
+
+								{/* Orders Table */}
+								<div className="rounded-2xl border border-gray-100 overflow-hidden">
+									<div className="bg-gray-50/50 px-6 py-4 border-b border-gray-100 font-semibold text-gray-700 flex justify-between items-center">
+										<span>Recent Orders</span>
+										<button className="text-sm text-violet-600 font-bold hover:underline">
+											View All
+										</button>
+									</div>
+									<div className="divide-y divide-gray-100">
+										{[
+											{
+												id: "#ORD-1024",
+												customer: "Ahmed M.",
+												status: "New",
+												price: "450 EGP",
+												statusColor: "bg-blue-50 text-blue-700",
+											},
+											{
+												id: "#ORD-1023",
+												customer: "Sara K.",
+												status: "Processing",
+												price: "1,200 EGP",
+												statusColor: "bg-yellow-50 text-yellow-700",
+											},
+											{
+												id: "#ORD-1022",
+												customer: "Mahmoud S.",
+												status: "Completed",
+												price: "250 EGP",
+												statusColor: "bg-green-50 text-green-700",
+											},
+											{
+												id: "#ORD-1021",
+												customer: "Nour A.",
+												status: "Completed",
+												price: "850 EGP",
+												statusColor: "bg-green-50 text-green-700",
+											},
+										].map((order, i) => (
+											<div
+												key={i}
+												className="px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+											>
+												<div className="flex items-center gap-4">
+													<div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center font-bold text-gray-500 text-xs">
+														{order.customer.charAt(0)}
+													</div>
+													<div>
+														<div className="font-bold text-gray-900">
+															{order.customer}
+														</div>
+														<div className="text-xs text-gray-500">
+															{order.id}
+														</div>
+													</div>
+												</div>
+												<div className="flex items-center gap-6">
+													<span
+														className={`px-3 py-1 rounded-full text-xs font-bold ${order.statusColor}`}
+													>
+														{order.status}
+													</span>
+													<span className="font-bold text-gray-900 w-20 text-right">
+														{order.price}
+													</span>
+												</div>
+											</div>
+										))}
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
 
 			{/* Who is Tijaratk For */}
-			<section className="py-20 bg-gray-50">
-				<div className="max-w-4xl mx-auto px-4 sm:px-8 text-center">
-					<h2 className="text-3xl font-bold text-gray-900 mb-12">
+			<section className="py-24 bg-white border-t border-gray-100">
+				<div className="max-w-5xl mx-auto px-4 sm:px-8 text-center">
+					<h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
 						{t("WhoFor.title")}
 					</h2>
-					<div className="flex flex-wrap justify-center gap-4 mb-12">
-						{Object.entries(t.raw("WhoFor.list")).map(([key, value]) => (
+					<div className="flex flex-wrap justify-center gap-4 mb-4">
+						{t.raw("WhoFor.list").map((item: string, i: number) => (
 							<span
-								key={key}
-								className="px-6 py-3 rounded-full bg-white text-gray-800 shadow-sm border border-gray-200 font-medium text-lg"
+								key={i}
+								className="px-8 py-4 rounded-2xl bg-gray-50 text-gray-900 border border-gray-100 font-bold text-lg md:text-xl shadow-sm hover:scale-105 transition-transform cursor-default"
 							>
-								{value as string}
+								{item}
 							</span>
 						))}
 					</div>
-					<p className="text-xl text-gray-600 font-medium">
-						{t("WhoFor.conclusion")}
-					</p>
 				</div>
 			</section>
 
 			{/* Pricing Teaser */}
-			<section className="py-24 bg-white">
-				<div className="max-w-4xl mx-auto px-4 sm:px-8 text-center">
-					<div className="glass-panel bg-gradient-to-br from-violet-50 to-indigo-50 p-12 rounded-[2.5rem]">
-						<h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+			<section className="py-24 bg-gray-900 text-white overflow-hidden relative">
+				<div className="absolute top-0 right-0 w-[500px] h-[500px] bg-violet-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20"></div>
+				<div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20"></div>
+
+				<div className="max-w-4xl mx-auto px-4 sm:px-8 text-center relative z-10">
+					<div className="glass-panel bg-linear-to-br from-violet-50 to-indigo-50 p-12 md:p-20 rounded-[3rem]">
+						<h2 className="text-5xl md:text-7xl font-black text-violet-700 mb-6 tracking-tight">
 							{t("Pricing.teaser")}
 						</h2>
-						<p className="text-2xl text-violet-600 font-medium">
+						<p className="text-2xl md:text-3xl text-gray-400 font-medium">
 							{t("Pricing.subTeaser")}
 						</p>
 					</div>
@@ -414,29 +552,25 @@ export default async function Home() {
 			</section>
 
 			{/* Final CTA */}
-			<section className="py-32 relative bg-gray-900 text-white overflow-hidden">
-				<div className="absolute inset-0 bg-violet-900/20 z-0"></div>
-				<div className="absolute -top-40 -right-40 w-96 h-96 bg-violet-500 rounded-full filter blur-[128px] opacity-40"></div>
-				<div className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-500 rounded-full filter blur-[128px] opacity-40"></div>
-
-				<div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-8 text-center">
-					<h2 className="text-4xl md:text-5xl font-bold mb-6">
+			<section className="py-32 relative bg-white overflow-hidden">
+				<div className="max-w-4xl mx-auto px-4 sm:px-8 text-center relative z-10">
+					<h2 className="text-5xl md:text-7xl font-black mb-8 text-gray-900 tracking-tighter leading-[1.1]">
 						{t("FinalCTA.title")}
 					</h2>
-					<p className="text-xl text-gray-300 mb-10">
+					<p className="text-2xl text-gray-500 mb-12 font-medium">
 						{t("FinalCTA.subTitle")}
 					</p>
-					<div className="flex flex-col sm:flex-row justify-center gap-4">
+					<div className="flex flex-col items-center gap-6">
 						<Link
 							href="/signup"
-							className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-violet-900 bg-white rounded-full hover:bg-gray-100 transition-colors shadow-2xl hover:scale-105 transform duration-200"
+							className="inline-flex items-center justify-center px-10 py-5 text-xl font-bold text-white bg-black rounded-full hover:bg-gray-800 transition-all shadow-2xl hover:scale-105 transform duration-200"
 						>
 							{t("FinalCTA.button")}
 						</Link>
+						<span className="text-gray-400 font-medium">
+							{t("FinalCTA.buttonSub")}
+						</span>
 					</div>
-					<p className="mt-6 text-sm text-gray-400">
-						{t("FinalCTA.buttonSub")}
-					</p>
 				</div>
 			</section>
 

@@ -88,13 +88,28 @@ export class StorefrontApiService extends HttpService {
 	}
 
 	/**
-	 * POST /public/stores/{slug}/visit
+	 * POST /public/stores/{id}/visit
 	 */
 	public recordVisit(
-		slug: string,
-		payload: { ip?: string; userAgent?: string; referer?: string },
+		storeId: number,
+		payload: { userAgent?: string; referer?: string },
 	) {
-		return this.post<unknown>(`${slug}/visit`, payload);
+		return fetch(
+			`${process.env.NEXT_PUBLIC_API_BASE_URL}/public/stores/${storeId}/visit`,
+			{
+				method: "POST",
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(payload),
+			},
+		);
+		// return this.post<unknown>(`${storeId}/visit`, payload, undefined, {
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 	},
+		// });
 	}
 }
 

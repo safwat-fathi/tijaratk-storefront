@@ -269,80 +269,82 @@
 	"LandingPage": {
 		"brandName": "Tijaratk",
 		"Hero": {
-			"headline": "Turn your products into orders — online, in-store, and on WhatsApp.",
-			"subHeadline": "A no-commission platform that syncs your shelf, catalog, and WhatsApp orders in minutes.",
-			"supportingLine": "Perfect for groceries, pharmacies, mini-markets, and growing online stores.",
-			"primaryCTA": "Start Free — No Commission",
-			"secondaryCTA": "See How It Works"
+			"headline": "Your online store in seconds — zero commission.",
+			"subHeadline": "Sell from one link. Manage all orders and analytics from your own dashboard.",
+			"supportingLine": "Built for Instagram sellers, Facebook pages, and online-first businesses.",
+			"primaryCTA": "Create Your Store — Free",
+			"secondaryCTA": "See How It Works",
+			"badgeReady": "Ready in seconds",
+			"badgeCommission": "0% Commission"
 		},
 		"Problem": {
-			"title": "Selling through WhatsApp shouldn’t be this hard.",
-			"list": {
-				"messy": "Messy WhatsApp messages and lost orders",
-				"sync": "Products sold in-store but still “available” online",
-				"manual": "Manual totals, delivery fees, and constant back-and-forth",
-				"records": "No clear record of what was ordered and when"
-			},
-			"conclusion": "This chaos costs you time, trust, and sales."
+			"title": "Selling online shouldn’t mean losing control.",
+			"list": [
+				"Orders scattered across DMs and chats",
+				"No central place to track orders",
+				"No clear sales or product performance",
+				"Customers asking “did my order go through?\""
+			],
+			"conclusion": "This hurts trust, follow-up, and growth."
 		},
 		"Solution": {
-			"title": "Tijaratk brings order to how you sell.",
-			"prefix": "Tijaratk helps you manage products and orders across:",
-			"label": "Solution",
+			"title": "Tijaratk gives you a real selling system.",
+			"prefix": "With Tijaratk, you get:",
+			"label": "The Solution",
 			"list": {
-				"shop": "Your physical shop",
-				"catalog": "Your online catalog",
-				"whatsapp": "WhatsApp conversations"
+				"shop": "An online store customers can order from",
+				"dashboard": "All orders inside your dashboard",
+				"analytics": "Built-in analytics for sales & products"
 			},
-			"conclusion": "All without commissions, complex systems, or changing how you already work."
+			"conclusion": "No commission. No chaos. No missing orders."
 		},
 		"Features": {
-			"scan": {
-				"title": "Scan barcodes with your phone.",
-				"description": "Product name and image appear instantly.",
-				"quote": "Your store can be ready in under 15 minutes."
+			"store": {
+				"title": "Online Store in Seconds",
+				"description": "Add products and your store is live instantly. One link to share everywhere."
 			},
-			"sync": {
-				"title": "Sell an item in-store? One tap removes it online.",
-				"description": "No more out-of-stock surprises."
+			"dashboard": {
+				"title": "Centralized Orders Dashboard",
+				"description": "Every order appears clearly in your dashboard. Status, customer info, totals — all organized."
 			},
-			"whatsapp": {
-				"title": "Clean WhatsApp Orders",
-				"description": "Customers order from your catalog. You receive a clear, structured WhatsApp message."
+			"analytics": {
+				"title": "Built-in Analytics",
+				"description": "Know what sells and what doesn’t. Daily sales, top products, order trends."
 			},
-			"delivery": {
-				"title": "Local Delivery Pricing",
-				"description": "Charge delivery fees by neighborhood or zone. Just like real life."
+			"commission": {
+				"title": "Zero Commission",
+				"description": "You keep 100% of your revenue. Always."
 			}
 		},
-		"WhatsAppPreview": {
-			"title": "What the merchant receives"
-		},
-		"VideoShowcase": {
-			"title": "Watch Demo"
-		},
-		"Footer": {
-			"copyright": "Tijaratk. All rights reserved."
+		"DashboardPreview": {
+			"title": "This is your orders dashboard",
+			"list": [
+				"Orders list",
+				"Status (New / Processing / Completed)",
+				"Total revenue today"
+			]
 		},
 		"WhoFor": {
 			"title": "Who Is Tijaratk For?",
-			"list": {
-				"shops": "Local shops & groceries",
-				"pharmacies": "Pharmacies",
-				"minimarkets": "Mini-markets",
-				"online": "Online sellers using WhatsApp"
-			},
-			"conclusion": "If you sell products and talk to customers on WhatsApp — Tijaratk is for you."
+			"list": [
+				"Instagram sellers",
+				"Facebook page sellers",
+				"Online-first stores",
+				"Sellers who want control & insights"
+			]
 		},
 		"Pricing": {
-			"teaser": "Free to start. No commission.",
-			"subTeaser": "Upgrade only when your business grows."
+			"teaser": "Start free. Zero commission.",
+			"subTeaser": "Upgrade only when you grow."
 		},
 		"FinalCTA": {
-			"title": "Start your digital catalog today.",
-			"subTitle": "No commission. No complexity.",
-			"button": "Turn Every Message Into an Order",
-			"buttonSub": "Create Your Free Store Now"
+			"title": "Create your online store today.",
+			"subTitle": "Manage orders. Track sales. No commission.",
+			"button": "Create Your Store — Free",
+			"buttonSub": "See How It Works"
+		},
+		"Footer": {
+			"copyright": "Tijaratk. All rights reserved."
 		}
 	}
 }

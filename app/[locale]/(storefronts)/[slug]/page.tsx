@@ -22,7 +22,7 @@ type StorefrontPageProps = {
 };
 
 import { headers } from "next/headers";
-import { recordStoreVisit } from "@/lib/storefront/data";
+import { StorefrontVisitTracker } from "./components/StorefrontVisitTracker";
 
 // ... existing imports ...
 
@@ -38,16 +38,14 @@ export default async function StorefrontPage(props: StorefrontPageProps) {
 		notFound();
 	}
 
-	// Record visit (non-blocking)
-	const headersList = await headers();
-	recordStoreVisit(decodedSlug, {
-		userAgent: headersList.get("user-agent") || undefined,
-		referer: headersList.get("referer") || undefined,
-		ip: headersList.get("x-forwarded-for") || undefined,
-	});
+	if (!data) {
+		notFound();
+	}
+
 
 	return (
 		<StorefrontThemeProvider theme={data.theme}>
+			<StorefrontVisitTracker storeId={data.storefront.id} />
 			<main className="mx-auto flex min-h-screen max-w-6xl flex-col gap-12 px-4 py-10 sm:px-6 lg:px-10">
 				<StorefrontHero
 					storefront={data.storefront}
